@@ -4,6 +4,7 @@ django-filter==0.11.0
 django-nose==1.4.2
 django-rest-swagger==0.3.4
 djangorestframework==3.3.0
+django-bower==5.0.4
 factory-boy==2.6.0
 fake-factory==0.5.3
 Markdown==2.6.3

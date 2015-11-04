@@ -4,6 +4,7 @@ django-envie==0.0.9
 django-filter==0.11.0
 django-rest-swagger==0.3.4
 djangorestframework==3.3.0
+django-bower==5.0.4
 Markdown==2.6.3
 PyYAML==3.11
 selenium==2.48.0
