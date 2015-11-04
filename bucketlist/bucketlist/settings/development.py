@@ -7,6 +7,11 @@ from .base import *
 
 DEBUG = True
 
-INSTALLED_APPS += ('django_nose',)
+INSTALLED_APPS += ('django_nose', 'django_coverage',)
 
 TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
+
+NOSE_ARGS = [
+    '--with-coverage',
+    '--cover-package=bucketlist',
+]
