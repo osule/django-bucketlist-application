@@ -113,3 +113,9 @@ STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
     'djangobower.finders.BowerFinder',
 )
+
+BOWER_INSTALLED_APPS = (
+    'jquery',
+    'bootstrap',
+    'fontawesome',
+)
