@@ -7,7 +7,7 @@ from .base import *
 
 DEBUG = True
 
-INSTALLED_APPS += ('django_nose', 'django_coverage',)
+INSTALLED_APPS += ('django_nose',)
 
 TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 
