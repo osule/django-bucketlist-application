@@ -11,7 +11,7 @@ script:
 - python bucketlist/manage.py collectstatic --noinput --settings=bucketlist.settings.test
 - python bucketlist/manage.py makemigrations --settings=bucketlist.settings.test
 - python bucketlist/manage.py migrate --settings=bucketlist.settings.test
-- python bucketlist/manage.py test --noinput –with-coverage
+- python bucketlist/manage.py test --noinput --settings=bucketlist.settings.test –with-coverage
 after_success:
 - coveralls
 deploy:
