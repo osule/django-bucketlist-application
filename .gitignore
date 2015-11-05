@@ -64,3 +64,6 @@ bower_components
 
 # System files
 .DS_Store
+
+# Database
+db.sqlite3
