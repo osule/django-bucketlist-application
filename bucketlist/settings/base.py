@@ -103,10 +103,10 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
-    os.path.join(PROJECT_ROOT, 'static'),
+    os.path.join(BASE_DIR, 'static'),
 )
 
-STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
@@ -114,7 +114,7 @@ STATICFILES_FINDERS = (
     'djangobower.finders.BowerFinder',
 )
 
-BOWER_COMPONENTS_ROOT = os.path.join(PROJECT_ROOT, '..')
+BOWER_COMPONENTS_ROOT = os.path.join(PROJECT_ROOT)
 
 BOWER_INSTALLED_APPS = (
     'jquery',

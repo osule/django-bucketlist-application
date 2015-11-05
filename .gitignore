@@ -61,3 +61,6 @@ target/
 
 # Bower components
 bower_components
+
+# System files
+.DS_Store
