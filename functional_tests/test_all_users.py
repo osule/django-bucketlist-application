@@ -12,7 +12,7 @@ class HomeNewVisitorTest(StaticLiveServerTestCase):
     @classonlymethod
     def setUpClass(cls):
         super(StaticLiveServerTestCase, cls).setUpClass()
-        cls.browser = webdriver.Firefox()
+        cls.browser = webdriver.PhantomJS()
         cls.browser.implicitly_wait(3)
 
     @classonlymethod
