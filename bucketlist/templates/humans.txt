@@ -1,0 +1,13 @@
+# bucketlist-staging.heroku.com/
+# The humans responsible & technology colophon
+ 
+# TEAM
+    Oluwafemi Sule -- Developer -- @oluwafemi_sule
+
+# THANKS
+    Special thanks to @chidi without whom this project might never been a checkpoint.
+
+# TECHNOLOGY COLOPHON
+    Django
+    Twitter Bootstrap
+    JQuery
