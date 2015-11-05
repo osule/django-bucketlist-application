@@ -1,0 +1,25 @@
+{
+  "name": "DPBA",
+  "version": "0.0.1",
+  "authors": [
+    "Oluwafemi Sule <oluwafemi.sule@andela.com>"
+  ],
+  "description": "Django-Powered Bucketlist Application",
+  "main": "",
+  "moduleType": [],
+  "license": "MIT",
+  "homepage": "bucketlist-staging.herokuapp.com",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.5",
+    "font-awesome": "fontawesome#~4.4.0",
+    "jquery": "~2.1.4"
+  }
+}
