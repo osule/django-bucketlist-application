@@ -114,7 +114,7 @@ STATICFILES_FINDERS = (
     'djangobower.finders.BowerFinder',
 )
 
-BOWER_COMPONENTS_ROOT = os.path.join(PROJECT_ROOT, 'static')
+BOWER_COMPONENTS_ROOT = os.path.join(PROJECT_ROOT, '..')
 
 BOWER_INSTALLED_APPS = (
     'jquery',

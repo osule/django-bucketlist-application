@@ -58,3 +58,6 @@ target/
 
 # Environment file
 .env.yml
+
+# Bower components
+bower_components
