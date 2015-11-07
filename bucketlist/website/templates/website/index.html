@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">Bucketlist tracker</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+          <a href="#"><i class="glyphicon-unlock glyphicon"></i>About</a>
+        </li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+<section>
+    <div id="fixInImage">
+      <div class="col-md-7">
+        <h1 class="jumbofy">Welcome to Bucketlist Tracker</h1>
+        <p class="jumbofy">...keeping track of those things you want to do in life before you kick the bucket.</p>
+      </div>
+      <div class="col-md-offset-1 col-md-4">
+        <form action="{% url 'app.login' %}" method="POST">
+            <div class="form-group">
+              <input name="username" type="text" placeholder="Username or email" class="form-control">
+            </div>
+            <div class="form-group">
+              <input name="password" type="text" placeholder="Password" class="form-control">
+            </div>
+            <div class="checkbox form-group">
+             <input name="remember_me" type="checkbox">Remember me
+              <a href="">Forgot password</a>
+            </div>
+            <button type="submit" class="btn btn-default">Login</button>
+        </form>
+        
+        <!--Signup form-->
+        <form action="{% url 'app.signup' %}" method="POST">
+          {% csrf_token %}
+          <p><strong>New to Bucketlist Tracker?</strong> Sign up</p>
+          <div class="form-group">
+              <input name="full_name" type="text" placeholder="Full name" class="form-control">
+            </div>
+             <div class="form-group">
+              <input name="username" type="text" placeholder="Username" class="form-control">
+            </div>
+            <div class="form-group">
+                <input name="email" type="text" placeholder="Email" class="form-control">
+            </div>
+            <div class="form-group">
+                <input name="password" type="password" placeholder="Password" class="form-control">
+            </div>
+            <button type="submit" class="btn btn-default">Sign up for Bucketlist Tracker</button>
+        </form>
+      </div>
+    </div>
+</section>
+
+
+{% endblock %}
