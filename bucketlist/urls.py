@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.conf.urls import include, url, patterns
 from django.contrib import admin
-import views
+from bucketlist.website import views
 
 urlpatterns = [
     url(r'^(?P<filename>(robots.txt)|(humans.txt))$',
