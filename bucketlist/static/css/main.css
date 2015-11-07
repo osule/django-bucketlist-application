@@ -1,0 +1,36 @@
+@import url(https://fonts.googleapis.com/css?family=Raleway:400,300,200);
+
+body {
+
+}
+
+
+h1, h2, h3, h4 {
+    font-family: 'Raleway';
+    font-weight: 200;
+}
+
+#fixInImage {
+    min-height: 500px;
+}
+
+h1 {
+    font-size: 48px;
+}
+
+#fixInImage .jumbofy {
+    font-size: 32px;
+    font-weight: 100;
+}
+
+footer ul {
+    list-style: none;
+}
+
+.checkbox {
+    margin-left: 20px;
+}
+
+form:last-child {
+    margin-top: 20px;
+}
