@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.conf.urls import include, url, patterns
 from django.contrib import admin
-from bucketlist.website import views
+from website import views
 
 urlpatterns = [
     url(r'^(?P<filename>(robots.txt)|(humans.txt))$',
@@ -26,6 +26,7 @@ urlpatterns += patterns(
     '',
     url(r'^$', views.RootView.as_view(), name='app.index'),
     url(r'^login$', views.LoginView.as_view(), name='app.login'),
+    url(r'^signup$', views.SignUpView.as_view(), name='app.signup'),
     url(r'^logout$', views.LogoutView.as_view(), name='app.logout'),
 )
 
