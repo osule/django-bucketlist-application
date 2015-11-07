@@ -72,7 +72,8 @@ class SignUpView(View):
     """
     def post(self, request, *args, **kwargs):
         email = request.POST.get('email')
-        first_name, last_name = request.POST.get('full_name').split(' ')[:2]
+        first_name = request.POST.get('first_name')
+        last_name = request.POST.get('last_name')
         password = request.POST.get('password')
         username = request.POST.get('username')
         user = User.objects.create_user(
