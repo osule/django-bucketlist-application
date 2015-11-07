@@ -24,7 +24,9 @@ urlpatterns = [
 
 urlpatterns += patterns(
     '',
-    url(r'^$', views.RootView.as_view(), name='app.index')
+    url(r'^$', views.RootView.as_view(), name='app.index'),
+    url(r'^login$', views.LoginView.as_view(), name='app.login'),
+    url(r'^logout$', views.LogoutView.as_view(), name='app.logout'),
 )
 
 urlpatterns += patterns(
