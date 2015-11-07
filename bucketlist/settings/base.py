@@ -59,7 +59,7 @@ ROOT_URLCONF = 'urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates'),],
+        'DIRS': [os.path.join(BASE_DIR, 'templates'), ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -85,6 +85,8 @@ DATABASES = {
     }
 }
 
+# Session
+SESSION_COOKIE_AGE = 360
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
