@@ -4,19 +4,24 @@ from django.shortcuts import render, redirect
 from django.core.urlresolvers import reverse
 from django.utils.timezone import now
 from django.contrib.auth import authenticate
+from django.contrib.auth.models import User
 from django.contrib import messages
 import datetime
 
 
 class RootView(View):
-    template_name = "bucketlist/index.html"
+    template_name = "website/index.html"
 
     def get(self, request, *args, **kwargs):
         today = datetime.date.today()
         return render(
                 request, self.template_name,
-                {'today': today, 'now': now()}
-                )
+                {
+                    'today': today,
+                    'now': now(),
+                    'page_title': 'Home'
+                }
+            )
 
 
 class RootFilesView(View):
@@ -32,7 +37,7 @@ class RootFilesView(View):
 class LoginView(View):
     """Renders requests for authorization.
     """
-    template_name = "bucketlist/login.html"
+    template_name = "website/login.html"
 
     def get(self, request, *args, **kwargs):
         return render(
@@ -42,6 +47,8 @@ class LoginView(View):
     def post(self, request, *args, **kwargs):
         username = request.POST.get('username')
         password = request.POST.get('password')
+        if not request.POST.get('remember_me', None):
+            request.session.set_expiry(0)
         user = authenticate(
             username=username,
             password=password)
@@ -58,6 +65,30 @@ class LogoutView(View):
     """
     def get(self, request, *args, **kwargs):
         return redirect(reverse('app.index'))
+
+
+class SignUpView(View):
+    """Processes request to signup a user
+    """
+    def post(self, request, *args, **kwargs):
+        email = request.POST.get('email')
+        first_name, last_name = request.POST.get('full_name').split(' ')[:2]
+        password = request.POST.get('password')
+        username = request.POST.get('username')
+        user = User.objects.create_user(
+            username=username,
+            password=password,
+            first_name=first_name,
+            last_name=last_name,
+            email=email
+        )
+        if user:
+            authenticate(username=username, password=password)
+            messages.success(
+                request,
+                'Hello {}, please kindly update your profile information.')
+            return redirect(reverse('app.dashboard'))
+        return redirect(reverse('app.login'))
 
 
 class DashboardView(View):
