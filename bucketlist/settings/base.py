@@ -126,3 +126,5 @@ BOWER_INSTALLED_APPS = (
     'bootstrap',
     'fontawesome',
 )
+
+LOGIN_URL = '/'
