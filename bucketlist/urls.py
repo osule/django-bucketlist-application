@@ -26,8 +26,13 @@ urlpatterns += patterns(
     '',
     url(r'^$', views.RootView.as_view(), name='app.index'),
     url(r'^login$', views.LoginView.as_view(), name='app.login'),
+    url(r'^accounts/login/$', views.RootView.as_view(), name='app.index'),
     url(r'^signup$', views.SignUpView.as_view(), name='app.signup'),
     url(r'^logout$', views.LogoutView.as_view(), name='app.logout'),
+    url(r'^dashboard$', views.DashboardView.as_view(),
+        name='app.dashboard'),
+    url(r'^bucketlist$', views.BucketlistView.as_view(),
+        name='app.bucketlist')
 )
 
 urlpatterns += patterns(
