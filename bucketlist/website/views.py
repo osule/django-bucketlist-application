@@ -3,10 +3,21 @@ from django.views.generic import View
 from django.shortcuts import render, redirect
 from django.core.urlresolvers import reverse
 from django.utils.timezone import now
-from django.contrib.auth import authenticate
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.template import RequestContext
 from django.contrib import messages
+from django.db import IntegrityError
+from models import Bucketlist
 import datetime
+
+
+class LoginRequiredMixin(object):
+    @classmethod
+    def as_view(cls, **initkwargs):
+        view = super(LoginRequiredMixin, cls).as_view(**initkwargs)
+        return login_required(view)
 
 
 class RootView(View):
@@ -37,33 +48,43 @@ class RootFilesView(View):
 class LoginView(View):
     """Renders requests for authorization.
     """
-    template_name = "website/login.html"
-
-    def get(self, request, *args, **kwargs):
-        return render(
-            request, self.template_name, {}
-        )
-
     def post(self, request, *args, **kwargs):
         username = request.POST.get('username')
         password = request.POST.get('password')
         if not request.POST.get('remember_me', None):
             request.session.set_expiry(0)
-        user = authenticate(
-            username=username,
-            password=password)
-        if user is not None:
-            return redirect(reverse('app.dashboard'))
+        if '@' in username:
+            try:
+                user = User.objects.get(email=username)
+                if not user.check_password(password):
+                    messages.error(request, 'Wrong username or password.')
+                    return redirect(
+                        reverse('app.index'))
+                else:
+                    user = authenticate(
+                        username=user.username,
+                        password=user.password)
+            except User.DoesNotExist:
+                pass
         else:
-            messages.error(request, 'Wrong username or password.')
+            user = authenticate(
+                username=username,
+                password=password)
+        if user is not None:
+            login(request, user)
             return redirect(
-                reverse('app.login'))
+                reverse('app.dashboard'))
+
+        messages.error(request, 'Wrong username or password.')
+        return redirect(
+                reverse('app.index'))
 
 
 class LogoutView(View):
     """Renders request to logout authenticated session.
     """
     def get(self, request, *args, **kwargs):
+        logout(request)
         return redirect(reverse('app.index'))
 
 
@@ -76,27 +97,48 @@ class SignUpView(View):
         last_name = request.POST.get('last_name')
         password = request.POST.get('password')
         username = request.POST.get('username')
-        user = User.objects.create_user(
-            username=username,
-            password=password,
-            first_name=first_name,
-            last_name=last_name,
-            email=email
-        )
+        try:
+            user = User.objects.create_user(
+                username=username,
+                password=password,
+                first_name=first_name,
+                last_name=last_name,
+                email=email
+            )
+        except IntegrityError:
+            messages.error(request, 'Username is already taken.')
+            return redirect(reverse('app.index'))
+
         if user:
-            authenticate(username=username, password=password)
+            user = authenticate(username=username, password=password)
+            login(request, user)
             messages.success(
                 request,
-                'Hello {}, please kindly update your profile information.')
+                'Hello {}, please kindly update \
+                your profile information.'.format(first_name))
             return redirect(reverse('app.dashboard'))
         return redirect(reverse('app.login'))
 
 
-class DashboardView(View):
+class DashboardView(LoginRequiredMixin, View):
     """Renders dashboard for logged in user"""
+
     def get(self, request, *arg, **kwargs):
-        if request.user.is_authenticated():
-            return render(
-                request,
-                'bucketlist/dashboard.html', {}
+        return render(
+            request,
+            'website/dashboard.html', {}
             )
+
+
+class BucketlistView(LoginRequiredMixin, View):
+    """Renders bucketlist for logged in user"""
+
+    def post(self, request, *arg, **kwargs):
+        name = request.POST.get('name')
+        user = request.user
+        bucketlist = Bucketlist(name=name, user=user)
+        bucketlist.save()
+        messages.success(
+            request,
+            'Bucketlist has been added successfully')
+        return redirect(reverse('app.dashboard'))        
