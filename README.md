@@ -21,7 +21,7 @@ It comes with the following features:
 
 ### Tech
 
-Bucketlist Track uses a number of open source projects to work properly:
+Bucketlist Tracker uses a number of open source projects to work properly:
 
 * [Django] - Django makes it easier to build better Web apps more quickly and with less code
 * [Swagger] - The World's Most Popular Framework for APIs
