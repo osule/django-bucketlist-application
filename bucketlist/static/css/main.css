@@ -34,3 +34,15 @@ footer ul {
 form:last-child {
     margin-top: 20px;
 }
+
+footer {
+    margin-top: 20px;
+}
+
+.no-left{
+    padding-left: 0px;
+}
+
+.content {
+    min-height: 500px;
+}
