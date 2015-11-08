@@ -7,18 +7,18 @@ from django.contrib.auth.models import User
 class Bucketlist(models.Model):
     """A model representation of the Bucketlist table
     """
-    title = models.CharField(max_length=255)
+    name = models.CharField(max_length=255)
     user = models.ForeignKey(User)
-    created_at = models.DateTimeField(auto_now_add=True)
-    update_at = models.DateTimeField(auto_now=True)
+    date_created = models.DateTimeField(auto_now_add=True)
+    date_modified = models.DateTimeField(auto_now=True)
 
 
 class BucketlistItem(models.Model):
     """A model representation of the Bucketlist item table
     """
-    title = models.CharField(max_length=255)
+    name = models.CharField(max_length=255)
     done = models.BooleanField(default=False)
     user = models.ForeignKey(User)
     bucketlist = models.ForeignKey(Bucketlist)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    date_created = models.DateTimeField(auto_now_add=True)
+    date_modified = models.DateTimeField(auto_now=True)
