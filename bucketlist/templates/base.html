@@ -13,6 +13,7 @@
         <link rel="stylesheet" href="{% static 'css/normalize.min.css' %}">
         <link rel="stylesheet" href="{% static 'bower_components/bootstrap/dist/css/bootstrap.min.css' %}">
         <link rel="stylesheet" href="{% static 'bower_components/font-awesome/css/font-awesome.min.css' %}">
+        {% block app_css %} {% endblock %}
         <link rel="stylesheet" href="{% static 'css/main.css' %}">
         <script src="{% static 'js/vendor/modernizr-2.8.3-respond-1.4.2.min.js' %}"></script>
     </head>
@@ -34,6 +35,14 @@
                     <li>
                       <a href="#"><i class="glyphicon-unlock glyphicon"></i>About</a>
                     </li>
+                    {% if request.user %}
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="glyphicon glyphicon-user"></i>{{request.user.username}} <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                          <li><a href="{% url 'app.logout' %}">Log out</a></li>
+                      </ul>
+                    </li> 
+                    {% endif %}
                   </ul>
                 </div><!-- /.navbar-collapse -->
               </div><!-- /.container-fluid -->
@@ -61,8 +70,9 @@
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="static/bower_components/jquery/dist/jquery.min.js"><\/script>')</script>
-        <link rel="stylesheet" href="{% static 'bower_components/bootstrap/dist/js/bootstrap.min.js' %}">
+        <script src="{% static 'bower_components/bootstrap/dist/js/bootstrap.min.js' %}"></script>
         <script src="{% static 'js/plugins.js' %}"></script>
+        {% block app_js %} {% endblock %}
         <script src="{% static 'js/main.js' %}"></script>
 
     </body>
