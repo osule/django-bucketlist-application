@@ -12,6 +12,18 @@ class Bucketlist(models.Model):
     date_created = models.DateTimeField(auto_now_add=True)
     date_modified = models.DateTimeField(auto_now=True)
 
+    def bucketlistitem_count_done(self):
+        """Gets the count of bucketlist items done
+        """
+        return BucketlistItem.objects.filter(
+            bucketlist=self, done=True).count()
+
+    def bucketlistitem_count_undone(self):
+        """Gets the count of bucketlist items undone
+        """
+        return BucketlistItem.objects.filter(
+            bucketlist=self, done=False).count()
+
 
 class BucketlistItem(models.Model):
     """A model representation of the Bucketlist item table
