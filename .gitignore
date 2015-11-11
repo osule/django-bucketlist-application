@@ -67,3 +67,11 @@ bower_components
 
 # Database
 db.sqlite3
+
+# eclipse IDE
+.project
+.pydevproject
+.settings
+
+# Migrations
+migrations
