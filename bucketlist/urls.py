@@ -31,8 +31,17 @@ urlpatterns += patterns(
     url(r'^logout$', views.LogoutView.as_view(), name='app.logout'),
     url(r'^dashboard$', views.DashboardView.as_view(),
         name='app.dashboard'),
-    url(r'^bucketlist$', views.BucketlistView.as_view(),
-        name='app.bucketlist')
+    url(r'^bucketlists$', views.BucketlistView.as_view(),
+        name='app.bucketlists'),
+    url(r'^bucketlists/(?P<id>[0-9]+)/', views.BucketlistEditView.as_view(),
+        name='app.bucketlist'),
+    url(r'^bucketlists/(?P<id>[0-9]+)/items$',
+        views.BucketlistView.as_view(),
+        name='app.bucketlist.items'),
+
+    url(r'^bucketlists/(?P<id>[0-9]+)/items/(?P<item_id>[0-9]+)$',
+        views.BucketlistItemEditView.as_view(),
+        name='app.bucketlist.item'),
 )
 
 urlpatterns += patterns(
