@@ -46,3 +46,34 @@ footer {
 .content {
     min-height: 500px;
 }
+
+.item {
+    padding: 0px 20px 20px 0px;
+}
+.item p{
+    margin-left: 0px;
+}
+.item h3 {
+    margin-top: 0;
+}
+.done {
+    margin-top: 10px;
+}
+
+.counters {
+    margin: 10px 0 10px 0;
+}
+.hide {
+    display: none;
+}
+.alert {
+    margin-bottom: 0px;
+}
+.margin-sm-bottom {
+    margin-bottom:12px
+}
+#addForm form {
+    margin-top: 0;
+    margin-bottom: 28px;
+    padding-bottom: 20px;
+}
