@@ -1,0 +1,36 @@
+{% load static %}
+
+{% if not bucketlists %}
+
+<p>No bucketlist have been added. Go ahead and <a href="#" id="addFirstBtn"> add your first</a>!</p>
+<form action="{% url 'app.bucketlists' %}" method="POST">
+    {% csrf_token %}
+    <div class="col-sm-8 no-left">
+        <input name="name" type="text" class="form-control" placeholder="Bucketlist Name" required>
+    </div>
+    <div class="col-sm-4 no-left">
+        <button type="submit" class="btn btn-primary">Add</button>
+    </div>
+</form>
+
+{% else %}
+    {% for bucketlist in bucketlists %}
+        <div class="col-md-4 no-left item">
+            <h3>
+                <a href="{% url 'app.bucketlist' bucketlist.id %}" title="View bucketlist items">{{ bucketlist.name }}</a> 
+            </h3>
+            <div class="counters">
+                <span class="label label-success">{{bucketlist.bucketlistitem_count_done}}</span>
+                <span class="label label-info">{{bucketlist.bucketlistitem_count_undone}}</span>
+            </div>
+            <div>
+                <button class="update-btn" title="Rename" data-csrf-token="{% csrf_token %}" data-url="{% url 'app.bucketlist' bucketlist.id %}"><i class="glyphicon glyphicon-edit"></i></button>
+                <button class="delete-btn" title="Delete" data-url="{% url 'app.bucketlist' bucketlist.id %}"><i class="glyphicon glyphicon-trash"></i></button>
+            </div>
+        </div>
+    {% endfor %}
+{% endif %}
+
+{% block custom_js %}
+    <script type="text/javascript" src="{% static 'js/vendor/string-format.js' %}"></script>
+{% endblock %}
