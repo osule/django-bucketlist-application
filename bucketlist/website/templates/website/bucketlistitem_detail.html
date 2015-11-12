@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="col-sm-12">
+  <aside>
+    <div class="input-group">
+      <input type="search" class="form-control" name="q" placeholder="Search for...">
+    <span class="input-group-btn">
+      <button type="submit" class="btn btn-default">Search</button>
+    </span>
+    </div>
+  </aside>
+</div>
+
+<header>
+  <div class="col-sm-12 margin-sm-bottom">
+    <h3>{{ object.name }}</h3>
+  </div>
+</header>
+{% include 'website/snippets/messages.html' %}
+<section>
+  <div class="col-sm-12">
+    <p>{% if object.done %}
+        This activity has been completed.
+       {% else %}
+        This activity hasn't been completed yet.
+        {% endif %}
+    </p>
+    <p class="details">
+        <datetime>
+            Created: {{ object.date_created }}
+        </datetime>
+        <datetime>
+            Updated: {{ object.date_modified}}
+        </datetime>
+    </p>
+  </div>
+</section>
+
+
+{% endblock %}
