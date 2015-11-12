@@ -1,0 +1,11 @@
+<div class="col-sm-12" id="addForm">
+    <form action="{% url 'app.bucketlists' %}" method="POST">
+        {% csrf_token %}
+        <div class="col-sm-8 no-left">
+            <input name="name" type="text" class="form-control" placeholder="Bucketlist Name" required>
+        </div>
+        <div class="col-sm-4 no-left">
+            <button type="submit" class="btn btn-primary">Add</button>
+        </div>
+    </form>
+</div>
