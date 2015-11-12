@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% include 'website/snippets/search.html' %}
+
+<header>
+  <div class="col-sm-12 margin-sm-bottom">
+    <h2>Dashboard</h2>
+  </div>
+</header>
+{% include 'website/snippets/messages.html' %}
+<section>
+ 
+ <ul>
+    <li>
+        <a href="{% url 'app.bucketlists'%}">Bucketlists</a>
+    </li> 
+ </ul>
+</section>
+
+
+{% endblock %}
