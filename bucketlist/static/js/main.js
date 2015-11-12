@@ -1,4 +1,5 @@
 (function(){
+	//Add more bucketlists
     var AddMore = {
         originalHtml: '',
         $addForm:  $('#addForm'),
@@ -31,4 +32,5 @@
         }
     }
     AddMore.init();
+   
 }).call(this);
