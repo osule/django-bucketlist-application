@@ -12,7 +12,6 @@ from django.contrib import messages
 from django.db import IntegrityError
 from website.models import Bucketlist, BucketlistItem
 from .utils import get_http_referer
-from .forms import UpdateBucketlistItemForm
 import datetime
 
 
