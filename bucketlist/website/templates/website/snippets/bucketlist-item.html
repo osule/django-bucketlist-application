@@ -1,0 +1,17 @@
+  {% for bucketlistitem in bucketlistitems %}
+      <div class="col-md-4 no-left">
+          <div class="item">
+              <p>
+                 <a href="{% url 'app.bucketlist.item' bucketlist.id bucketlistitem.id %}">{{ bucketlistitem.name }}</a>
+              </p>
+              <div>
+                  <span><i class="glyphicon glyphicon-calendar"></i>{{bucketlistitem.date_created}}</span>
+              </div>
+              <div class="done">
+                   <input name="done" type="checkbox" data-label-text="Done?" data-on-text="Yes" data-off-text="No"
+                    {% if bucketlistitem.done %}checked{% endif %}
+                    >
+              </div>
+          </div>
+      </div>
+  {% endfor %}
