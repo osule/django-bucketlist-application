@@ -13,16 +13,16 @@
         <form action="{% url 'app.login' %}" method="POST">
           {% csrf_token %}
           <div class="form-group">
-            <input name="username" type="text" placeholder="Username or email" class="form-control">
+            <input id="signInUsername" name="username" type="text" placeholder="Username or email" class="form-control">
           </div>
           <div class="form-group">
-            <input name="password" type="password" placeholder="Password" class="form-control">
+            <input id="signInPassword" name="password" type="password" placeholder="Password" class="form-control">
           </div>
           <div class="checkbox form-group">
            <input name="remember_me" type="checkbox">Remember me
             <a href="">Forgot password</a>
           </div>
-          <button type="submit" class="btn btn-default">Login</button>
+          <button id="signInBtn" type="submit" class="btn btn-default">Login</button>
         </form>
         
         <!--Signup form-->
