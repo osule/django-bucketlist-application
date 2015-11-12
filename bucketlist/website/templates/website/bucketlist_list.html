@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% include 'website/snippets/search.html' %}
+
+<header>
+  <div class="col-sm-12 margin-sm-bottom">
+    <h3>Manage your bucketlist</h3>
+    <span><a href="{% url 'app.bucketlist.create' %}" id="addMore">Add more</a></span>
+  </div>
+</header>
+{% include 'website/snippets/messages.html' %}
+<section>
+  <div class="col-sm-12">
+    <ul>
+		{% for bucketlist in object_list %}
+		    <li>
+		      <div class="row">
+		          <a href="{% url 'app.bucketlist' bucketlist.id %}">{{ bucketlist.name }}</a>
+		          <a href="{% url 'app.bucketlist.update' bucketlist.id %}">Update</a>
+		          <a href="{% url 'app.bucketlist.delete' bucketlist.id %}">Delete</a>
+		      </div>
+		    </li>
+		{% empty %}
+		    <li>No bucketlists yet.</li>
+		{% endfor %}
+    </ul>
+  </div>
+</section>
+
+{% include 'website/snippets/pagination.html' with object=object %}
+{% endblock %}
