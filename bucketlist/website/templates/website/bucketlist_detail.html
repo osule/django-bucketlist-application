@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="col-sm-12">
+  <aside>
+    <div class="input-group">
+      <input type="search" class="form-control" name="q" placeholder="Search for...">
+    <span class="input-group-btn">
+      <button type="submit" class="btn btn-default">Search</button>
+    </span>
+    </div>
+  </aside>
+</div>
+
+<header>
+  <div class="col-sm-12 margin-sm-bottom">
+    <h2>{{ object.name }}</h2>
+    <span><a href="{% url 'app.bucketlist.item.create' object.pk %}" id="addMore">Add more</a></span>
+  </div>
+</header>
+{% include 'website/snippets/messages.html' %}
+<section>
+  <div class="col-sm-12">
+    <ul>
+        {% for bucketlistitem in object.children %}
+            <li>
+              <a href="{% url 'app.bucketlist.item' object.id bucketlistitem.id %}">{{ bucketlistitem.name }}</a>
+              <a href="{% url 'app.bucketlist.item.update' object.id bucketlistitem.id %}">Update</a>
+              <a href="{% url 'app.bucketlist.item.delete' object.id bucketlistitem.id %}">Delete</a>
+            </li>
+        {% empty %}
+            <li>No bucketlist items yet.</li>
+        {% endfor %}
+    </ul>
+  </div>
+</section>
+
+
+{% endblock %}
