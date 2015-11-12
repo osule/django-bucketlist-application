@@ -1,6 +1,11 @@
+[run]
+parallel = True
+
 [report]
 omit =  
     */python?.?/*
     */site-packages/*
     *__init__*
-    bucketlist/settings/*.py
+    */bucketlist/settings/*.py
+    */migrations/*
+    */urls.py
