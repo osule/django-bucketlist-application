@@ -15,34 +15,12 @@ Including another URLconf
 """
 from django.conf.urls import include, url, patterns
 from django.contrib import admin
-from website import views
+from website import urls as website_urls
 
-urlpatterns = [
-    url(r'^(?P<filename>(robots.txt)|(humans.txt))$',
-        views.RootFilesView.as_view(), name='app.files'),
-]
+urlpatterns = patterns('',
+             url('^', include(website_urls)),   
+    )
 
-urlpatterns += patterns(
-    '',
-    url(r'^$', views.RootView.as_view(), name='app.index'),
-    url(r'^login$', views.LoginView.as_view(), name='app.login'),
-    url(r'^accounts/login/$', views.RootView.as_view(), name='app.index'),
-    url(r'^signup$', views.SignUpView.as_view(), name='app.signup'),
-    url(r'^logout$', views.LogoutView.as_view(), name='app.logout'),
-    url(r'^dashboard$', views.DashboardView.as_view(),
-        name='app.dashboard'),
-    url(r'^bucketlists$', views.BucketlistView.as_view(),
-        name='app.bucketlists'),
-    url(r'^bucketlists/(?P<id>[0-9]+)/', views.BucketlistEditView.as_view(),
-        name='app.bucketlist'),
-    url(r'^bucketlists/(?P<id>[0-9]+)/items$',
-        views.BucketlistView.as_view(),
-        name='app.bucketlist.items'),
-
-    url(r'^bucketlists/(?P<id>[0-9]+)/items/(?P<item_id>[0-9]+)$',
-        views.BucketlistItemEditView.as_view(),
-        name='app.bucketlist.item'),
-)
 
 urlpatterns += patterns(
     '', url(r'^admin/', include(admin.site.urls)),
