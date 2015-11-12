@@ -4,7 +4,7 @@ from django.views.generic.edit import UpdateView
 from django.shortcuts import render, redirect, get_object_or_404
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.utils.timezone import now
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.template import RequestContext
@@ -14,8 +14,6 @@ from website.models import Bucketlist, BucketlistItem
 from .utils import get_http_referer
 from .forms import UpdateBucketlistItemForm
 import datetime
-import pdb
-from pdb import Pdb
 
 
 class LoginRequiredMixin(object):
@@ -59,31 +57,26 @@ class LoginView(View):
         if not request.POST.get('remember_me', None):
             request.session.set_expiry(0)
         if '@' in username:
-            try:
-                user = User.objects.get(email=username)
-                if not user.check_password(password):
-                    messages.error(request, 'Wrong username or password.')
-                    return redirect(
-                        reverse('app.index'))
-                else:
-                    user = authenticate(
-                        username=user.username,
-                        password=user.password)
-            except User.DoesNotExist:
-                pass
+            kwargs = {'email': username}
         else:
-            user = authenticate(
-                username=username,
-                password=password)
-        if user is not None:
-            login(request, user)
-            return redirect(
-                reverse('app.dashboard'))
-
-        messages.error(request, 'Wrong username or password.')
-        return redirect(
-                reverse('app.index'))
-
+            kwargs = {'username': username}
+        try:
+            user = User.objects.get(**kwargs)
+            if user.check_password(password):
+                user_backend = authenticate(
+                        username=user.username,
+                        password=password,
+                        )
+                if not user_backend:
+                    raise User.DoesNotExist()
+                login(request, user_backend)
+                return redirect(reverse('app.dashboard'))
+            else:
+                raise User.DoesNotExist()
+        except User.DoesNotExist:
+            messages.error(request, 'Wrong username or password.')
+            return redirect(reverse('app.index'))
+ 
 
 class LogoutView(View):
     """Renders request to logout authenticated session.
@@ -97,6 +90,8 @@ class SignUpView(View):
     """Processes request to sign up a user
     """
     def post(self, request, *args, **kwargs):
+        if request.user.is_authenticated():
+            return redirect(reverse('app.dashboard'))
         email = request.POST.get('email')
         first_name = request.POST.get('first_name')
         last_name = request.POST.get('last_name')
@@ -122,7 +117,6 @@ class SignUpView(View):
                 'Hello {}, please kindly update \
                 your profile information.'.format(first_name))
             return redirect(reverse('app.dashboard'))
-        return redirect(reverse('app.login'))
 
 
 class DashboardView(LoginRequiredMixin, View):
@@ -298,6 +292,5 @@ class BucketlistItemDetailView(LoginRequiredMixin, DetailView):
         id, item_id = self.kwargs.values()
         context = {}
         context['object'] = get_object_or_404(BucketlistItem, pk=item_id)
-        print context['object']
         context['now'] = now()
         return context
