@@ -18,34 +18,50 @@ class BucketListTestCase(TestCase):
         self.user = user
 
         bucketlist = Bucketlist(
-            title=self.title,
+            name=self.title,
             user_id=self.user.id)
         bucketlist.save()
 
     def test_that_bucket_list_can_be_created(self):
-        """Tests that bucketlists can be created.
+        """Ensures that bucketlists can be created.
         """
         bucketlist = Bucketlist.objects.get(
-            title=self.title)
+            name=self.title)
 
         self.assertEqual(type(bucketlist.id), int)
 
     def test_that_bucket_list_item_can_be_created(self):
-        """Tests that bucketlist items can be created.
+        """Ensures that bucketlist items can be created.
         """
         bucketlist = Bucketlist.objects.get(
-            title=self.title)
+            name=self.title)
         bucketlist_item = BucketlistItem(
-            title="Visit India",
+            name="Visit India",
             done=False,
-            bucketlist_id=bucketlist.id,
+            bucketlist=bucketlist,
             user_id=self.user.id)
         bucketlist_item.save()
 
         bucketlist_item = BucketlistItem.objects.get(
-            title="Visit India")
+            name="Visit India")
 
         self.assertEqual(bucketlist_item.done, False)
         self.assertEqual(
             bucketlist_item.bucketlist_id,
             bucketlist.id)
+
+    def test_that_models_can_be_query(self):
+        """Ensures that models can be queried.
+        """
+        bucketlist = Bucketlist.objects.get(
+            name=self.title)
+        bucketlist_item = BucketlistItem(
+            name="Visit India",
+            done=False,
+            bucketlist=bucketlist,
+            user_id=self.user.id)
+        bucketlist_item.save()
+        
+        query_results = BucketlistItem.search('Visit')
+        
+        self.assertIn(bucketlist_item, query_results)
