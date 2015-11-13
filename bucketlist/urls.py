@@ -20,7 +20,8 @@ from api import urls as api_urls
 
 urlpatterns = [
              url('^', include(website_urls)),
-             url('^api/', include(api_urls))  
+             url('^api/', include(api_urls)),
+             url(r'^docs/', include('rest_framework_swagger.urls')), 
     ]
 
 
