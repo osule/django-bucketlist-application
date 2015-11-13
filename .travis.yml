@@ -27,5 +27,6 @@ deploy:
     - "python bucketlist/manage.py collectstatic --noinput"
     - "python bucketlist/manage.py makemigrations"
     - "python bucketlist/manage.py migrate"
+    - "python bucketlist/manage.py syncdb --noinput"
 after_deploy:
   - "heroku ps:scale web=1 --app bucketlist-staging"
