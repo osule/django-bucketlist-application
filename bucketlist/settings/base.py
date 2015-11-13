@@ -39,7 +39,8 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'djangobower',
     'website',
-    'rest_framework'
+    'rest_framework',
+    'rest_framework_swagger',
 )
 
 MESSAGE_STORAGE = 'django.contrib.messages.storage.cookie.CookieStorage'
