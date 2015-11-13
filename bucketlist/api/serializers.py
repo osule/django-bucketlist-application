@@ -16,8 +16,6 @@ class BucketlistSerializer(serializers.ModelSerializer):
     """Defines the bucketlist API representation.
     """
     created_by = serializers.SerializerMethodField('get_creator')
-    date_created = serializers.DateTimeField(format="%Y-%m-%d %H:%I:%S")
-    date_modified = serializers.DateTimeField(format="%Y-%m-%d %H:%I:%S")
     
     class Meta:
         model = Bucketlist
@@ -31,8 +29,6 @@ class BucketlistWithItemsSerializer(BucketlistSerializer):
     """Defines the bucketlist API representation with children items.
     """
     items = serializers.SerializerMethodField('get_bucketlistitems')
-    date_created = serializers.DateTimeField(format="%Y-%m-%d %H:%I:%S")
-    date_modified = serializers.DateTimeField(format="%Y-%m-%d %H:%I:%S")
     
  
     class Meta:
@@ -50,8 +46,6 @@ class BucketlistWithItemsSerializer(BucketlistSerializer):
 class BucketlistItemSerializer(serializers.ModelSerializer):
     """Defines the bucketlistitem API representation.
     """
-    date_created = serializers.DateTimeField(format="%Y-%m-%d %H:%I:%S")
-    date_modified = serializers.DateTimeField(format="%Y-%m-%d %H:%I:%S")
     
     class Meta:
         model = BucketlistItem
@@ -61,8 +55,6 @@ class BucketlistItemCreateSerializer(serializers.ModelSerializer):
     """Defines the bucketlistitem API representation for creation of a new
     bucketlistitem.
     """
-    date_created = serializers.DateTimeField(format="%Y-%m-%d %H:%I:%S")
-    date_modified = serializers.DateTimeField(format="%Y-%m-%d %H:%I:%S")
     
     class Meta:
         model = BucketlistItem
