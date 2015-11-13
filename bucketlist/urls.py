@@ -16,10 +16,12 @@ Including another URLconf
 from django.conf.urls import include, url, patterns
 from django.contrib import admin
 from website import urls as website_urls
+from api import urls as api_urls
 
-urlpatterns = patterns('',
-             url('^', include(website_urls)),   
-    )
+urlpatterns = [
+             url('^', include(website_urls)),
+             url('^api/', include(api_urls))  
+    ]
 
 
 urlpatterns += patterns(
