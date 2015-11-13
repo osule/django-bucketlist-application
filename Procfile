@@ -1,1 +1,1 @@
-web: python troupon/manage.py collectstatic --noinput --settings=troupon.settings.production --verbosity 0; gunicorn troupon.wsgi --pythonpath=troupon --log-file -
+web: python bucketlist/manage.py collectstatic --noinput --settings=settings.staging --verbosity 0; gunicorn bucketlist.wsgi --pythonpath=bucketlist --log-file -
