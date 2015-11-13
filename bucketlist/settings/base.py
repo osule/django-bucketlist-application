@@ -140,4 +140,5 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.BasicAuthentication',
         'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
     ),
+    'DATETIME_FORMAT': ('%Y-%m-%d %H:%M:%S')
 }
