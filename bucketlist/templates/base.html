@@ -8,7 +8,7 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <link rel="apple-touch-icon" href="apple-touch-icon.png">
+        <link rel="apple-touch-icon" href="{% static 'images/logo.ico' %}">
 
         <link rel="stylesheet" href="{% static 'css/normalize.min.css' %}">
         <link rel="stylesheet" href="{% static 'bower_components/bootstrap/dist/css/bootstrap.min.css' %}">
@@ -26,16 +26,17 @@
               <div class="container-fluid">
                 <!-- Brand and toggle get grouped for better mobile display -->
                 <div class="navbar-header">
-                  <a class="navbar-brand" href="#">Bucketlist tracker</a>
+                  <img class="navbar-logo" src="{% static 'images/logo.png' %}">
+                  <a class="navbar-brand" href="{% url 'app.index' %}">Bucketlist tracker</a>
                 </div>
 
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                   <ul class="nav navbar-nav navbar-right">
                     <li>
-                      <a href="#"><i class="glyphicon-unlock glyphicon"></i>About</a>
+                      <a href="/about"><i class="glyphicon-unlock glyphicon"></i>About</a>
                     </li>
-                    {% if request.user %}
+                    {% if user.is_authenticated %}
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="glyphicon glyphicon-user"></i>{{request.user.username}} <span class="caret"></span></a>
                         <ul class="dropdown-menu">
@@ -54,12 +55,12 @@
                 <div class="row">
                     <div class="col-xs-12 col-xs-push-0 col-md-4">
                         <div class="col-xs-7 col-md-6">
-                         <p>&copy; {{now.year}} The Bucketlist</p>
+                         <p>&copy; {% now "Y" %} The Bucketlist</p>
                         </div>
                         <div class="col-xs-5 col-md-3 text-right">
                             <nav>
                                 <ul>
-                                    <li><a href="">Privacy</a></li>
+                                    <li><a href="/privacy">Privacy</a></li>
                                 </ul>
                             </nav>
                         </div>
