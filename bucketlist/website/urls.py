@@ -59,5 +59,7 @@ urlpatterns += [
         name='app.bucketlist.item.update'),
                         
     url(r'^/bucketlists?q=(?P<query_string>[^\r\n]+)',
-        views.BucketlistListView.as_view())    
+        views.BucketlistListView.as_view()),
+    
+    url(r'^(?P<page>[-\w]+)/$', views.StaticView.as_view())   
 ]
