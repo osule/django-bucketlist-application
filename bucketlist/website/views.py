@@ -3,11 +3,12 @@ from django.views.generic import View, ListView, DetailView, CreateView, DeleteV
 from django.views.generic.edit import UpdateView
 from django.shortcuts import render, redirect, get_object_or_404
 from django.core.urlresolvers import reverse, reverse_lazy
-from django.utils.timezone import now
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.template import RequestContext
+from django.template.loader import TemplateDoesNotExist
+from django.http import Http404
 from django.contrib import messages
 from django.db import IntegrityError
 from website.models import Bucketlist, BucketlistItem
@@ -26,13 +27,12 @@ class RootView(View):
     template_name = "website/index.html"
 
     def get(self, request, *args, **kwargs):
-        today = datetime.date.today()
-        return render(
-                request, self.template_name,
+        if request.user.is_authenticated():
+            return redirect(reverse('app.dashboard'))
+        return render(request,
+                self.template_name,
                 {
-                    'today': today,
-                    'now': now(),
-                    'page_title': 'Home'
+                    'page_title': 'Home',
                 }
             )
 
@@ -45,6 +45,17 @@ class RootFilesView(View):
             request, self.kwargs.get('filename'),
             {}, content_type="text/plain"
         )
+
+
+class StaticView(View):
+    """Renders request for static pages"""
+    
+    def get(self, request, *args, **kwargs):
+        page = self.kwargs.get('page')
+        try:
+            return render(request, 'website/{0}.html'.format(page))
+        except TemplateDoesNotExist:
+            raise Http404()
 
 
 class LoginView(View):
@@ -107,6 +118,9 @@ class SignUpView(View):
         except IntegrityError:
             messages.error(request, 'Username is already taken.')
             return redirect(reverse('app.index'))
+        except ValueError:
+            messages.error(request, 'Username must be set.')
+            return redirect(reverse('app.index'))
 
         if user:
             user = authenticate(username=username, password=password)
@@ -146,7 +160,6 @@ class BucketlistListView(LoginRequiredMixin, ListView):
     
     def get_context_data(self, **kwargs):
         context = super(BucketlistListView, self).get_context_data(**kwargs)
-        context['now'] = now()
         context['q'] = self.request.GET.get('q', None)
         context['object'] = 'bucketlists'
         return context
@@ -162,7 +175,6 @@ class BucketlistDetailView(LoginRequiredMixin, DetailView):
                 'children',
                 BucketlistItem.objects.filter(bucketlist=context['object'].id)
             )
-        context['now'] = now()
         return context
 
 
@@ -193,7 +205,6 @@ class BucketlistUpdateView(LoginRequiredMixin, UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super(BucketlistUpdateView, self).get_context_data(**kwargs)
-        context['now'] = now()
         return context
     
 
@@ -216,7 +227,6 @@ class BucketlistItemCreateView(LoginRequiredMixin, CreateView):
         context = super(BucketlistItemCreateView, self).get_context_data(**kwargs)
         bucketlist = get_object_or_404(Bucketlist, pk=self.kwargs.get('pk'))
         context['object_name'] = bucketlist.name 
-        context['now'] = now()
         return context
     
     def post(self, request, pk):
@@ -254,7 +264,6 @@ class BucketlistItemUpdateView(LoginRequiredMixin, UpdateView):
     def get_context_data(self, **kwargs):
         pk = self.kwargs.get('pk_item')
         context = super(BucketlistItemUpdateView, self).get_context_data(**kwargs)
-        context['now'] = now()
         return context
 
 class BucketlistItemDeleteView(LoginRequiredMixin, DeleteView):
@@ -279,7 +288,6 @@ class BucketlistItemDeleteView(LoginRequiredMixin, DeleteView):
     def get_context_data(self, **kwargs):
         pk = self.kwargs.get('pk_item')
         context = super(BucketlistItemDeleteView, self).get_context_data(**kwargs)
-        context['now'] = now()
         return context
 
 
@@ -291,5 +299,4 @@ class BucketlistItemDetailView(LoginRequiredMixin, DetailView):
         id, item_id = self.kwargs.values()
         context = {}
         context['object'] = get_object_or_404(BucketlistItem, pk=item_id)
-        context['now'] = now()
         return context
