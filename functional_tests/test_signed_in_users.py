@@ -58,5 +58,5 @@ class HomeSigninUserTest(LiveServerTestCase):
         """
         self.browser.find_element_by_css_selector('section ul li a').click()
         self.assertEquals(
-            'No bucketlists yet.',
-            self.browser.find_element_by_css_selector('section ul li').text)
+            'No bucketlists added yet.',
+            self.browser.find_element_by_css_selector('section div p').text)
