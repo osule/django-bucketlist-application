@@ -41,9 +41,10 @@ class RootFilesView(View):
     """Renders requests for `robots.txt` and `humans.txt`"""
 
     def get(self, request, *args, **kwargs):
+        filename = self.kwargs.get('filename')
         return render(
-            request, self.kwargs.get('filename'),
-            {}, content_type="text/plain"
+            request, filename ,
+            {'page_title': filename}, content_type="text/plain"
         )
 
 
@@ -53,7 +54,9 @@ class StaticView(View):
     def get(self, request, *args, **kwargs):
         page = self.kwargs.get('page')
         try:
-            return render(request, 'website/{0}.html'.format(page))
+            return render(request,
+                          'website/{0}.html'.format(page),
+                          {'page_title': page.title()})
         except TemplateDoesNotExist:
             raise Http404()
 
@@ -141,7 +144,8 @@ class DashboardView(LoginRequiredMixin, View):
             request,
             'website/dashboard.html',
             {
-                'bucketlists': bucketlists
+                'bucketlists': bucketlists,
+                'page_title': 'Bucketlists'
             }
         )
 
@@ -162,6 +166,7 @@ class BucketlistListView(LoginRequiredMixin, ListView):
         context = super(BucketlistListView, self).get_context_data(**kwargs)
         context['q'] = self.request.GET.get('q', None)
         context['object'] = 'bucketlists'
+        context['page_title'] = 'View Bucketlists'
         return context
 
 class BucketlistDetailView(LoginRequiredMixin, DetailView):
@@ -175,6 +180,7 @@ class BucketlistDetailView(LoginRequiredMixin, DetailView):
                 'children',
                 BucketlistItem.objects.filter(bucketlist=context['object'].id)
             )
+        context['page_title'] = "View Bucketlist"
         return context
 
 
@@ -205,12 +211,18 @@ class BucketlistUpdateView(LoginRequiredMixin, UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super(BucketlistUpdateView, self).get_context_data(**kwargs)
+        context['page_title'] = 'Update Bucketlist'
         return context
     
 
 class BucketlistDeleteView(LoginRequiredMixin, DeleteView):
     model = Bucketlist
     success_url = reverse_lazy('app.bucketlists')
+    
+    def get_context_data(self, **kwargs):
+        context = super(BucketlistUpdateView, self).get_context_data(**kwargs)
+        context['page_title'] = 'Delete Bucketlist'
+        return context
 
 class BucketlistItemListView(LoginRequiredMixin, ListView):
     """Renders bucketlist edit view"""
@@ -226,7 +238,8 @@ class BucketlistItemCreateView(LoginRequiredMixin, CreateView):
     def get_context_data(self, **kwargs):
         context = super(BucketlistItemCreateView, self).get_context_data(**kwargs)
         bucketlist = get_object_or_404(Bucketlist, pk=self.kwargs.get('pk'))
-        context['object_name'] = bucketlist.name 
+        context['object_name'] = bucketlist.name
+        context['page_title'] = 'Create Bucketlist Item'
         return context
     
     def post(self, request, pk):
@@ -264,6 +277,7 @@ class BucketlistItemUpdateView(LoginRequiredMixin, UpdateView):
     def get_context_data(self, **kwargs):
         pk = self.kwargs.get('pk_item')
         context = super(BucketlistItemUpdateView, self).get_context_data(**kwargs)
+        context['page_title'] = 'Update Bucketlist Item'
         return context
 
 class BucketlistItemDeleteView(LoginRequiredMixin, DeleteView):
@@ -288,6 +302,7 @@ class BucketlistItemDeleteView(LoginRequiredMixin, DeleteView):
     def get_context_data(self, **kwargs):
         pk = self.kwargs.get('pk_item')
         context = super(BucketlistItemDeleteView, self).get_context_data(**kwargs)
+        context['page_title'] = 'Delete Bucketlist Item' 
         return context
 
 
@@ -299,4 +314,5 @@ class BucketlistItemDetailView(LoginRequiredMixin, DetailView):
         id, item_id = self.kwargs.values()
         context = {}
         context['object'] = get_object_or_404(BucketlistItem, pk=item_id)
+        context['page_title'] = 'View Bucketlist Item'
         return context
