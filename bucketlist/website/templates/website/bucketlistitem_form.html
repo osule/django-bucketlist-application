@@ -13,10 +13,11 @@
 {% include 'website/snippets/messages.html' %}
 <section>
     <div class="col-sm-12">
-        <form action="" method="post">{% csrf_token %}
+        <form class="create" action="" method="post">{% csrf_token %}
             <div class="input-group">
               {{ form.as_p }}
-              <input type="submit" value="Create"  class="btn btn-primary" />
+              <button type="submit" value="Create"  class="btn btn-primary">Create</button>
+              <button type="cancel" class="btn btn-cancel">Cancel</button>
             </div>
         </form>
     
