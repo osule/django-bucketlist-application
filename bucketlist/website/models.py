@@ -50,6 +50,11 @@ class Bucketlist(BaseModel):
         return BucketlistItem.objects.filter(
             bucketlist=self, done=False).count()
 
+    def bucketlistitem_count(self):
+        """Gets the count of all bucketlist items
+        """
+        return self.bucketlistitem_count_done() \
+                + self.bucketlistitem_count_undone()
 
 class BucketlistItem(BaseModel):
     """A model representation of the Bucketlist item table
