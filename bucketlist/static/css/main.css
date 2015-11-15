@@ -1,12 +1,26 @@
 @import url(https://fonts.googleapis.com/css?family=Raleway:400,300,200);
 
 body {
-
+    font-size: 16px;
 }
-.navbar-logo {
+.navbar .brand img {
 	height: 40px;
 	width: 40px;
+	vertical-align: bottom;
+	border: 0;
 }
+
+.navbar .brand {
+    font-size: 24px;
+    vertical-align: bottom;
+    text-shadow: 0 -1px 0 rgba(200,200,200,.5);
+    color: #9770B7;
+}
+.navbar .brand:hover {
+	text-decoration: none;
+	color: #9770B7;
+}
+
 
 h1, h2, h3, h4 {
     font-family: 'Raleway';
@@ -25,6 +39,9 @@ h1 {
     font-size: 32px;
     font-weight: 100;
 }
+footer {
+	font-size: 12px;
+}
 
 footer ul {
     list-style: none;
@@ -38,8 +55,8 @@ form:last-child {
     margin-top: 20px;
 }
 
-footer {
-    margin-top: 20px;
+footer .row {
+    padding: 35px 0 35px;
 }
 
 .no-left{
@@ -84,4 +101,16 @@ footer {
 	color: #8a6d3b;
     background-color: #fcf8e3;
     border-color: #faebcc;
+}
+
+.menu {
+	list-style: none;
+	padding: 15px;
+}
+.menu li {
+	text-indent: 0px;
+}
+
+form.create {
+	
 }
