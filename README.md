@@ -29,7 +29,7 @@ Bucketlist Tracker uses a number of open source projects to work properly:
 * [Bower] - A package manager for the web
 * [Django Rest Framework ] - Django REST framework is a powerful and flexible toolkit for building Web APIs
 * [HTML5 Boilerplate] - HTML5 Boilerplate helps you build fast, robust, and adaptable web apps or sites
-* [Font Awesome] - Font Awesome gives you scalable vector icons that can instantly be customized
+* [Font Awesome] - Font Awesome gives you scalable vsector icons that can instantly be customized
 * [jQuery] - jQuery is a fast, small, and feature-rich JavaScript library
 
 And of course, Bucketlist Tracker itself is open source with a [public repository][git-repo-url]

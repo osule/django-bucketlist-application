@@ -294,3 +294,29 @@ class BucketlistItemTestCase(SetUpMixin, TestCase):
             bucketlistitem_data['name'],
             status_code=200
         )
+
+
+class UserProfileTestCase(SetUpMixin, TestCase):
+    """Test that user can edit his profile.
+    """
+    def test_that_user_can_edit_profile(self):
+        response = self.client.login(**self.login_data)
+        
+        self.assertEqual(response, True)
+
+        profile_data = {
+                        'bio': 'User is a native of Metro City. \
+                                Since 2008, he has been District Executive\
+                                for Hispanic Outreach',
+                        'age': 24,
+                    }
+        response = self.client.post(
+                reverse('app.userprofile.save'),
+                profile_data,
+                follow=True
+            )
+
+        self.assertContains(
+            response, profile['bio'], status_code=200
+        )
+        self.client.logout()
