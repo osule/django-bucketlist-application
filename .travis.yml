@@ -26,6 +26,7 @@ deploy:
     - "export DJANGO_SETTINGS_MODULE=settings.staging"
     - "python bucketlist/manage.py collectstatic --noinput"
     - "python bucketlist/manage.py makemigrations"
+    - "python bucketlist/manage.py migrate auth"
     - "python bucketlist/manage.py migrate"
     - "python bucketlist/manage.py syncdb --noinput"
 after_deploy:
