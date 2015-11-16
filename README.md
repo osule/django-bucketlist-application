@@ -38,21 +38,25 @@ And of course, Bucketlist Tracker itself is open source with a [public repositor
 ### Installation
 You can signup for an account [here](https://bucketlist-staging.herokuapp.com).
 
-If you wish to run your own build, you need python installed globally. Download a release for your environment from [here](https://www.python.org/downloads/)
+If you wish to run your own build, you need to have python installed globally on your PC. Download a release for your environment from [here](https://www.python.org/downloads/)
 
 After you're done installing python, run these following command in your terminal.
 ```bash
 $ git clone [git-repo-url] dpba
 $ cd dpba
-$ pip install -r requirements/production.txt
-$ python bucketlist/manage.py runserver --settings=settings.production
+$ pip install -r requirements/development.txt
 ```
 
-### Plugins
+Next, setup environment your secret key
+```bash
+$ touch .env.py
+$ echo 'SECRET_KEY="whatever-you-wish-this-to-be"'
+```
 
-Bucketlist Tracker is currently extended with the following plugins
-
-* Slacker
+Finally, run your build
+```bash
+$ python bucketlist/manage.py runserver --settings=settings.development
+```
 
 ### Development
 
@@ -64,6 +68,7 @@ Fork this repository, do the awesome and then make a pull request.
 
  - OAuth
  - Export lists as Notes
+ - Slack integration
 
 License
 ----
