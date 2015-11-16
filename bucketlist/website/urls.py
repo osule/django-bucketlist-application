@@ -61,5 +61,5 @@ urlpatterns += [
     url(r'^/bucketlists?q=(?P<query_string>[^\r\n]+)',
         views.BucketlistListView.as_view()),
     
-    url(r'^(?P<page>[-\w]+)/$', views.StaticView.as_view())   
+    url(r'^(?P<page>(about|privacy)+)/$', views.StaticView.as_view())   
 ]
