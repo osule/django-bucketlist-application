@@ -58,8 +58,11 @@ urlpatterns += [
         views.BucketlistItemUpdateView.as_view(),
         name='app.bucketlist.item.update'),
                         
-    url(r'^/bucketlists?q=(?P<query_string>[^\r\n]+)',
+    url(r'^bucketlists?q=(?P<query_string>[^\r\n]+)',
         views.BucketlistListView.as_view()),
+    
+    url(r'^profile/$', views.UserProfileView.as_view(), name='app.user_profile'),
+    url(r'^profile/edit$', views.UserProfileUpdateView.as_view(), name='app.user_profile.edit'),
     
     url(r'^(?P<page>(about|privacy)+)/$', views.StaticView.as_view())   
 ]
