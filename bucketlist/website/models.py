@@ -62,3 +62,11 @@ class BucketlistItem(BaseModel):
     done = models.BooleanField(default=False)
     user = models.ForeignKey(User)
     bucketlist = models.ForeignKey(Bucketlist)
+
+
+class UserProfile(BaseModel):
+    """A model representation of the user's profile
+    """
+    bio = models.TextField(blank=True, null=True)
+    age = models.IntegerField(blank=True, null=True)
+    user = models.ForeignKey(User)
