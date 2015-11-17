@@ -11,7 +11,7 @@ from django.template.loader import TemplateDoesNotExist
 from django.http import Http404
 from django.contrib import messages
 from django.db import IntegrityError
-from website.models import Bucketlist, BucketlistItem
+from website.models import Bucketlist, BucketlistItem, UserProfile
 from .utils import get_http_referer
 import datetime
 
@@ -315,4 +315,34 @@ class BucketlistItemDetailView(LoginRequiredMixin, DetailView):
         context = {}
         context['object'] = get_object_or_404(BucketlistItem, pk=item_id)
         context['page_title'] = 'View Bucketlist Item'
+        return context
+    
+    
+class UserProfileView(LoginRequiredMixin, View):
+    """Renders user profile page"""
+    def get(self, request, *args, **kwargs):
+        profile, created = UserProfile.objects.get_or_create(user=self.request.user)
+        
+        return render(
+            self.request,
+            'website/profile.html', 
+            {'profile': profile,
+             'page_title': 'Update Profile'
+            })
+
+class UserProfileUpdateView(LoginRequiredMixin, UpdateView):
+    """Renders user profile form and updates profile data on form submission"""
+    model = UserProfile
+    template_name_suffix = '_update_form'
+    fields = ['age', 'bio']
+    
+    def get_success_url(self, **kwargs):
+        return reverse_lazy('app.user_profile',)
+    
+    def get_object(self, queryset=None, **kwargs):
+        return self.model.objects.get_or_create(user=self.request.user)[0]
+    
+    def get_context_data(self, **kwargs):
+        context = super(UserProfileUpdateView, self).get_context_data(**kwargs)
+        context['page_title'] = 'Update Profile'
         return context
