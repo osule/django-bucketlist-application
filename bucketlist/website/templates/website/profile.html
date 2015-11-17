@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<header>
+  <div class="col-sm-12 margin-sm-bottom">
+    <h2>My Profile</h2>
+  </div>
+</header>
+
+<section>
+ 
+ <div class="col-sm-12">
+    <p>Firstname: {{request.user.first_name|default:'Not set'}}</p>
+    <p>Lastname: {{request.user.last_name|default:'Not set'}}</p>
+    <p>Email: {{request.user.email|default:'Not set'}}</p>
+    <p>Age: {{profile.age|default:'Not set'}}</p>
+    <p>Bio: {{profile.bio|default:'Not set'}}</p>
+    <a href="{% url 'app.user_profile.edit' %}" class="btn btn-default">Edit</a>
+ </div>
+</section>
+
+
+{% endblock %}
