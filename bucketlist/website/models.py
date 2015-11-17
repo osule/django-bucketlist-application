@@ -30,6 +30,9 @@ class BaseModel(models.Model):
             else:
                 query = query & or_query
         return cls.objects.filter(query).order_by('date_created')
+    
+    def __str__(self):
+        return self.name
 
 
 class Bucketlist(BaseModel):
