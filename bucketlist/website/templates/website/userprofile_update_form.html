@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+{% include 'website/snippets/search.html' %}
+
+<header>
+  <div class="col-sm-12 margin-sm-bottom">
+    <h3>Update your profile</h3>
+    <span>Current updating your profile</span>
+  </div>
+</header>
+{% include 'website/snippets/messages.html' %}
+<section>
+    <div class="col-sm-12">
+        <form action="" method="post">{% csrf_token %}
+            <div class="input-group">
+              {{ form.as_p }}
+              <input type="submit" value="Update"  class="btn btn-primary" />
+            </div>
+        </form>
+    
+    </div>
+</section>
+
+{% endblock %}
