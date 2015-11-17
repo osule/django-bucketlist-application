@@ -311,12 +311,12 @@ class UserProfileTestCase(SetUpMixin, TestCase):
                         'age': 24,
                     }
         response = self.client.post(
-                reverse('app.userprofile.save'),
+                reverse('app.user_profile.edit'),
                 profile_data,
                 follow=True
             )
 
         self.assertContains(
-            response, profile['bio'], status_code=200
+            response, profile_data['bio'], status_code=200
         )
         self.client.logout()
