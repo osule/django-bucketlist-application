@@ -16,7 +16,9 @@
 		<form action="" method="post">{% csrf_token %}
 		    <div class="input-group">
 		      {{ form.as_p }}
-		      <input type="submit" value="Update"  class="btn btn-primary" />
+		      <button type="submit" class="btn btn-primary">Update</button>
+               <span class="spacer-15"></span>
+              <button class="btn btn-cancel">Cancel</button>
 		    </div>
 		</form>
 	
