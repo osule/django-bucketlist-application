@@ -62,7 +62,9 @@ footer .row {
 .no-left{
     padding-left: 0px;
 }
-
+.btn-primary.no-left-margin{
+    margin-left: 0px;
+}
 .content {
     min-height: 500px;
 }
@@ -109,8 +111,69 @@ footer .row {
 }
 .menu li {
 	text-indent: 0px;
+    margin-bottom: 10px;
+}
+.menu li i {
+    margin-right: 4px;
+}
+.btn-primary {
+    margin-left: 55px;
+    background: #89458C;
+    border: #89458C;
+}
+.btn-primary:hover{
+    background: #9770B7
 }
 
 form.create {
-	
+	border-top: 1px solid #ccc;
+    border-bottom: 1px inset #ccc;
+    padding: 25px;
+    background: #f8f8f8;
+}
+label {
+    font-weight: 700;
+    font-size: 16px;
+}
+.spacer-15 {
+    margin-left: 7.5px;
+    margin-right: 7.5px;
+}
+.btn-cancel {
+    background: #EECC66;
+}
+.btn-cancel:hover{
+    background: #F7DE94;
+}
+.glyphicon {
+    margin-right: 4px;
+}
+input[type=checkbox]{
+    width: 16px;
+    height: 16px;
+    margin-left: 4px;
+}
+.no-bullets {
+    list-style: none;
+    padding-left: 0px;
+}
+.action-link {
+    width: 40px;
+    display: inline-block;
+    border: 1px solid #f9f9f9;
+    color: #999;
+    border-radius: 8px;
+    text-align: center;
+    padding: 8px 0px;
+}
+.action-link:hover{
+    border: 1px solid #fcfcfc;
+    background: #bcbcbc;
+
+}
+.pagination-centered {
+    text-align: center;
+}
+ul.spacer li{
+    margin-bottom: 8px;
 }
