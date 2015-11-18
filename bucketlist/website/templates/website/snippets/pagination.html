@@ -1,7 +1,7 @@
 {% load tag_library %}
 
 {% if is_paginated %}
-<div class="pagination pagination-centered">
+<div class="pagination-centered">
     <ul class="pagination">
         {% if page_obj.has_previous %}
 		<li><a href="/{{object}}/?{% if q %}q={{q}}&{% endif %}page={{ page_obj.previous_page_number }}" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
@@ -9,7 +9,12 @@
 
         {% for i in paginator.page_range %}
             {% if page_obj.has_next %}
-            <li {{request.GET.page}}-{{i}} {% if i|to_str == request.GET.page %}class="active"{% endif %}><a href="/{{object}}/?{% if q %}q={{q}}&{% endif %}page={{i}}">{{i}}</a></li>
+            <li {{request.GET.page}}-{{i}} 
+            {% if i|to_str == request.GET.page %}class="active"{% endif %}
+            {% if i == 1 and request.GET.page == None %}class="active"{% endif %}
+            >
+                <a href="/{{object}}/?{% if q %}q={{q}}&{% endif %}page={{i}}">{{i}}</a>
+            </li>
             {% endif %}
         {% endfor %}
 
