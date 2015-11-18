@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load humanize %} 
 
 {% block content %}
 <div class="col-sm-12">
@@ -27,12 +28,20 @@
         {% endif %}
     </p>
     <p class="details">
-        <datetime>
-            Created: {{ object.date_created }}
-        </datetime>
-        <datetime>
-            Updated: {{ object.date_modified}}
-        </datetime>
+        <ul class="no-bullets spacer">
+          <li>
+            <i class="fa fa-clock-o"></i>
+            <datetime>
+                Created: {{ object.date_created|naturaltime }}
+            </datetime>
+          </li>
+          <li>
+            <i class="fa fa-clock-o"></i>
+            <datetime>
+                Updated: {{ object.date_modified|naturaltime}}
+            </datetime>
+          </li>
+        </ul>
     </p>
   </div>
 </section>
