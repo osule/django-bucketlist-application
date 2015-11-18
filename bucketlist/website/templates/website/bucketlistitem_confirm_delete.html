@@ -14,7 +14,8 @@
     <div class="col-sm-12">
         <form action="" method="post">{% csrf_token %}
             <p>Are you sure you want to delete "{{ object.name }}"?</p>
-            <input type="submit" value="Confirm" class="btn btn-primary"/>
+            <input type="submit" value="Confirm" class="btn btn-primary no-left-margin"/>
+            <button class="btn btn-cancel">Cancel</button>
         </form>
     
     </div>
