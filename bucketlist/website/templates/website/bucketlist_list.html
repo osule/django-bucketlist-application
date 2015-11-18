@@ -28,8 +28,8 @@
                 <td>{{bucketlist.bucketlistitem_count_done}} /
                   {{bucketlist.bucketlistitem_count}}</td>
                 <td>
-                <a href="{% url 'app.bucketlist.update' bucketlist.id %}" title="Update"><i class="fa fa-edit"></i></a>
-                <a href="{% url 'app.bucketlist.delete' bucketlist.id %}" title="Delete"><i class="fa fa-trash"></i></a></td>
+                <a class="action-link" href="{% url 'app.bucketlist.update' bucketlist.id %}" title="Update"><i class="fa fa-edit"></i></a>
+                <a class="action-link" href="{% url 'app.bucketlist.delete' bucketlist.id %}" title="Delete"><i class="fa fa-trash"></i></a></td>
              </tr>
             {% endfor %}
 	    </tbody>
