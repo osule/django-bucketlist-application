@@ -26,6 +26,7 @@
         <thead>
             <tr>
                 <td>Name</td>
+                <td>Done</td>
                 <td>Actions</td>
             <tr>
         </thead>
@@ -33,9 +34,10 @@
         {% for bucketlistitem in object.children %}
         <tr>
           <td><a href="{% url 'app.bucketlist.item' object.id bucketlistitem.id %}">{{ bucketlistitem.name }}</a></td>
+          <td>{% if bucketlistitem.done %}<i class="fa fa-check"></i>{% else %}<i class="fa fa-times"></i>{% endif %}</td>
 	      <td>
-	      <a href="{% url 'app.bucketlist.item.update' object.id bucketlistitem.id %}" title="Update"><i class="fa fa-edit"></i></a>
-          <a href="{% url 'app.bucketlist.item.delete' object.id bucketlistitem.id %}" title="Delete"><i class="fa fa-trash"></i></a></td>
+	      <a class="action-link" href="{% url 'app.bucketlist.item.update' object.id bucketlistitem.id %}" title="Update"><i class="fa fa-edit"></i></a>
+          <a  class="action-link" href="{% url 'app.bucketlist.item.delete' object.id bucketlistitem.id %}" title="Delete"><i class="fa fa-trash"></i></a></td>
         </tr>
         {% endfor %}
         </tbody>
