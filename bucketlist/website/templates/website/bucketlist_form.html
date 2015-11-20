@@ -3,7 +3,7 @@
 
 {% block content %}
 {% include 'website/snippets/search.html' %}
-
+{% include 'website/snippets/back.html' %}
 <header>
   <div class="col-sm-12 margin-sm-bottom">
     <h3>Create Bucketlist</h3>
@@ -16,7 +16,7 @@
         <form action="" method="post" class="create">{% csrf_token %}
             <div class="input-group">
               {{ form.as_p }}
-              <button type="submit" class="btn btn-primary">Create</button>
+              <button id="id_submit_btn" type="submit" class="btn btn-primary">Create</button>
               <span class="spacer-15"></span>
               <button class="btn btn-cancel">Cancel</button>
             </div>
