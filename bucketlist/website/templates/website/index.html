@@ -3,14 +3,19 @@
 {% block content %}
 
 {% include 'website/snippets/messages.html' %}
+
 <section>
     <div id="fixInImage">
       <div class="col-md-7">
         <h1 class="jumbofy">Welcome to Bucketlist Tracker</h1>
         <p>...keeping track of those things you want to do in life before you kick the bucket.</p>
+        <div class="purple-world">
+          <p>Die a happy <i class="fa fa-smile-o"></i> person knowing that you completed those things that you hold very dear.</p>
+
+        </div>
       </div>
       <div class="col-md-offset-1 col-md-4">
-        <form action="{% url 'app.login' %}" method="POST">
+        <form class="auth" action="{% url 'app.login' %}" method="POST">
           {% csrf_token %}
           <div class="form-group">
             <input id="signInUsername" name="username" type="text" placeholder="Username or email" class="form-control">
@@ -26,7 +31,7 @@
         </form>
         
         <!--Signup form-->
-        <form action="{% url 'app.signup' %}" method="POST">
+        <form class="auth" action="{% url 'app.signup' %}" method="POST">
           {% csrf_token %}
           <p><strong>New to Bucketlist Tracker?</strong> Sign up</p>
           <div class="form-group">
