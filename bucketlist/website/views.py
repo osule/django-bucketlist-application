@@ -169,7 +169,7 @@ class BucketlistListView(LoginRequiredMixin, ListView):
         query_string = self.request.GET.get('q', None)
         if query_string:
             return self.model.search(query_string)
-        return self.model.objects.all()
+        return self.model.objects.filter(user=self.request.user)
 
     def get_context_data(self, **kwargs):
         context = super(BucketlistListView, self).get_context_data(**kwargs)
