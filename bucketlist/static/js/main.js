@@ -19,6 +19,6 @@ $(document).ready(function(){
 
     $('.btn-cancel').on('click', goBack);
     
-    $('.btn-primary').on('click', validate);
+    $('#id_submit_btn').on('click', validate);
 
 });
