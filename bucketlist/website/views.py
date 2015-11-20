@@ -89,7 +89,7 @@ class LoginView(View):
                 return redirect(reverse('app.dashboard'))
             else:
                 raise User.DoesNotExist()
-        except User.DoesNotExist:
+        except (User.DoesNotExist, User.MultipleObjectsReturned):
             messages.error(request, 'Wrong username or password.')
             return redirect(reverse('app.index'))
 
@@ -230,7 +230,7 @@ class BucketlistDeleteView(LoginRequiredMixin, DeleteView):
     success_url = reverse_lazy('app.bucketlists')
 
     def get_context_data(self, **kwargs):
-        context = super(BucketlistUpdateView, self).get_context_data(**kwargs)
+        context = super(BucketlistDeleteView, self).get_context_data(**kwargs)
         context['page_title'] = 'Delete Bucketlist'
         return context
 
