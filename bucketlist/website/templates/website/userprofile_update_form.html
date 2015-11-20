@@ -3,7 +3,7 @@
 
 {% block content %}
 {% include 'website/snippets/search.html' %}
-
+{% include 'website/snippets/back.html' %}
 <header>
   <div class="col-sm-12 margin-sm-bottom">
     <h3>Update your profile</h3>
@@ -13,7 +13,7 @@
 {% include 'website/snippets/messages.html' %}
 <section>
     <div class="col-sm-12">
-        <form action="" method="post">{% csrf_token %}
+        <form class="profile-update" action="" method="post">{% csrf_token %}
             <div class="input-group">
               {{ form.as_p }}
               <button type="submit" class="btn btn-primary">Update</button>
