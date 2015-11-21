@@ -5,20 +5,23 @@
 {% include 'website/snippets/search.html' %}
 {% include 'website/snippets/back.html' %}
 <header>
-  <div class="col-sm-12 margin-sm-bottom">
-    <h3>{{object.name}}</h3>
+  <div class="row">
+    <div class="col-sm-12 margin-sm-bottom">
+      <h3>{{object.name}}</h3>
+    </div>
   </div>
 </header>
 {% include 'website/snippets/messages.html' %}
 <section>
+  <div class="row">
     <div class="col-sm-12">
         <form action="" method="post">{% csrf_token %}
             <p>Are you sure you want to delete "{{ object.name }}"?</p>
             <input type="submit" value="Confirm" class="btn btn-primary no-left-margin"/>
             <button class="btn btn-cancel">Cancel</button>
         </form>
-    
     </div>
+  </div>
 </section>
 
 {% endblock %}
