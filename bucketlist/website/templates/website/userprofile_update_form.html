@@ -5,13 +5,16 @@
 {% include 'website/snippets/search.html' %}
 {% include 'website/snippets/back.html' %}
 <header>
-  <div class="col-sm-12 margin-sm-bottom">
-    <h3>Update your profile</h3>
-    <span>Current updating your profile</span>
+  <div class="row">
+    <div class="col-sm-12 margin-sm-bottom">
+      <h3>Update your profile</h3>
+      <span>Current updating your profile</span>
+    </div>
   </div>
 </header>
 {% include 'website/snippets/messages.html' %}
 <section>
+  <div class="row">
     <div class="col-sm-12">
         <form class="profile-update" action="" method="post">{% csrf_token %}
             <div class="input-group">
@@ -21,8 +24,8 @@
               <button class="btn btn-cancel">Cancel</button>
             </div>
         </form>
-    
     </div>
+  </div>
 </section>
 
 {% endblock %}

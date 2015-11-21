@@ -3,21 +3,24 @@
 {% block content %}
 {% include 'website/snippets/back.html' %}
 <header>
-  <div class="col-sm-12 margin-sm-bottom">
-    <h2>My Profile</h2>
+  <div class="row">
+    <div class="col-sm-12 margin-sm-bottom">
+      <h2>My Profile</h2>
+    </div>
   </div>
 </header>
 
 <section>
- 
- <div class="col-sm-12 profile">
-    <p><a href="{% url 'app.user_profile.edit' %}" class="btn btn-default">Edit</a></p>
-    <p><span>Firstname:</span> {{request.user.first_name|default:'Not set'}}</p>
-    <p><span>Lastname:</span> {{request.user.last_name|default:'Not set'}}</p>
-    <p><span>Email:</span> {{request.user.email|default:'Not set'}}</p>
-    <p><span>Age:</span> {{profile.age|default:'Not set'}}</p>
-    <p><span>Bio:</span> {{profile.bio|default:'Not set'}}</p>
- </div>
+  <div class="row">
+    <div class="col-sm-12 profile">
+      <p><a href="{% url 'app.user_profile.edit' %}" class="btn btn-default">Edit</a></p>
+      <p><span>Firstname:</span> {{request.user.first_name|default:'Not set'}}</p>
+      <p><span>Lastname:</span> {{request.user.last_name|default:'Not set'}}</p>
+      <p><span>Email:</span> {{request.user.email|default:'Not set'}}</p>
+      <p><span>Age:</span> {{profile.age|default:'Not set'}}</p>
+      <p><span>Bio:</span> {{profile.bio|default:'Not set'}}</p>
+    </div>
+  </div>
 </section>
 
 
