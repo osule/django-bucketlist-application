@@ -5,24 +5,27 @@
 {% include 'website/snippets/search.html' %}
 {% include 'website/snippets/back.html' %}
 <header>
-  <div class="col-sm-12 margin-sm-bottom">
-    <h3>{{ object.name }}</h3>
-    <span>Currently updating {{ object.name }}</span>
+  <div class="row">
+    <div class="col-sm-12 margin-sm-bottom">
+      <h3>{{ object.name }}</h3>
+      <span>Currently updating {{ object.name }}</span>
+    </div>
   </div>
 </header>
 {% include 'website/snippets/messages.html' %}
 <section>
-	<div class="col-sm-12">
-		<form action="" method="post">{% csrf_token %}
-		    <div class="input-group">
-		      {{ form.as_p }}
-		      <button id="id_submit_btn" type="submit" class="btn btn-primary">Update</button>
-               <span class="spacer-15"></span>
-              <button class="btn btn-cancel">Cancel</button>
-		    </div>
-		</form>
-	
-	</div>
+  <div class="row">
+  	<div class="col-sm-12">
+  		<form action="" method="post">{% csrf_token %}
+  		    <div class="input-group">
+  		      {{ form.as_p }}
+  		      <button id="id_submit_btn" type="submit" class="btn btn-primary">Update</button>
+                 <span class="spacer-15"></span>
+                <button class="btn btn-cancel">Cancel</button>
+  		    </div>
+  		</form>
+  	</div>
+  </div>
 </section>
 
 {% endblock %}
