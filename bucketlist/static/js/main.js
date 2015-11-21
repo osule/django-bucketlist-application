@@ -17,8 +17,14 @@ $(document).ready(function(){
         }
     }
 
+    var markAsDone = function(event){
+        $(this).closest('form').submit();
+    }
+
     $('.btn-cancel').on('click', goBack);
     
     $('#id_submit_btn').on('click', validate);
+
+    $('#id_done_check').on('click', markAsDone);
 
 });
