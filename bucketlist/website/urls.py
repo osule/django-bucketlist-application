@@ -1,4 +1,4 @@
-from django.conf.urls import url  
+from django.conf.urls import url
 import website.views as views
 
 
@@ -7,7 +7,7 @@ urlpatterns = [
             views.RootFilesView.as_view(), name='app.files'),
     ]
 
-urlpatterns += [    
+urlpatterns += [
     url(r'^$',
         views.RootView.as_view(),
         name='app.index'),
@@ -48,6 +48,9 @@ urlpatterns += [
         views.BucketlistItemDetailView.as_view(),
         name='app.bucketlist.item'),
 
+    url(r'^bucketlists/(?P<pk>[0-9]+)/items/(?P<pk_item>[0-9]+)/finish/$',
+        views.BucketlistItemDoneView.as_view(),
+        name='app.bucketlist.item.finish'),
     url(r'^bucketlists/(?P<pk>[0-9]+)/items/create/$',
         views.BucketlistItemCreateView.as_view(),
         name='app.bucketlist.item.create'),
@@ -57,12 +60,14 @@ urlpatterns += [
     url(r'^bucketlists/(?P<pk>[0-9]+)/items/(?P<pk_item>[0-9]+)/update/$',
         views.BucketlistItemUpdateView.as_view(),
         name='app.bucketlist.item.update'),
-                        
+
     url(r'^bucketlists?q=(?P<query_string>[^\r\n]+)',
         views.BucketlistListView.as_view()),
-    
-    url(r'^profile/$', views.UserProfileView.as_view(), name='app.user_profile'),
-    url(r'^profile/edit$', views.UserProfileUpdateView.as_view(), name='app.user_profile.edit'),
-    
-    url(r'^(?P<page>(about|privacy)+)/$', views.StaticView.as_view())   
+
+    url(r'^profile/$', views.UserProfileView.as_view(),
+        name='app.user_profile'),
+    url(r'^profile/edit$', views.UserProfileUpdateView.as_view(),
+        name='app.user_profile.edit'),
+
+    url(r'^(?P<page>(about|privacy)+)/$', views.StaticView.as_view())
 ]
