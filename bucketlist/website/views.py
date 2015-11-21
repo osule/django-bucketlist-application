@@ -346,6 +346,20 @@ class BucketlistItemDetailView(LoginRequiredMixin, DetailView):
         return context
 
 
+class BucketlistItemDoneView(View):
+
+    """Toggles bucketlist item done field"""
+
+    def get(self, request, **kwargs):
+        item_id = self.kwargs.get('pk_item')
+        id = self.kwargs.get('pk')
+        bucketlistitem = get_object_or_404(BucketlistItem, pk=item_id)
+        bucketlistitem.done = True
+        bucketlistitem.save()
+        messages.success(request, "Bucketlist item was marked as done")
+        return redirect(reverse('app.bucketlist', kwargs={'pk': id}))
+
+
 class UserProfileView(LoginRequiredMixin, View):
 
     """Renders user profile page"""
