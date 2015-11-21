@@ -5,13 +5,16 @@
 {% include 'website/snippets/search.html' %}
 {% include 'website/snippets/back.html' %}
 <header>
-  <div class="col-sm-12 margin-sm-bottom">
-    <h3>{{ object.bucketlist.name}}</h3>
-    <span>Currently updating {{ object.name }}</span>
+  <div class="row">
+    <div class="col-sm-12 margin-sm-bottom">
+      <h3>{{ object.bucketlist.name}}</h3>
+      <span>Currently updating {{ object.name }}</span>
+    </div>
   </div>
 </header>
 {% include 'website/snippets/messages.html' %}
 <section>
+  <div class="row">
     <div class="col-sm-12">
         <form action="" method="post">{% csrf_token %}
             <div class="input-group">
@@ -20,9 +23,9 @@
               <span class="spacer-15"></span>
               <button class="btn btn-cancel">Cancel</button>
             </div>
-        </form>
-    
+        </form>  
     </div>
+  </div>
 </section>
 
 {% endblock %}
