@@ -5,13 +5,16 @@
 {% include 'website/snippets/search.html' %}
 {% include 'website/snippets/back.html' %}
 <header>
-  <div class="col-sm-12 margin-sm-bottom">
-    <h3>Create Bucketlist</h3>
-    <span>Current creating a new bucketlist</span>
+  <div class="row">
+    <div class="col-sm-12 margin-sm-bottom">
+      <h3>Create Bucketlist</h3>
+      <span>Currently creating a new bucketlist</span>
+    </div>
   </div>
 </header>
 {% include 'website/snippets/messages.html' %}
 <section>
+  <div class="row">
     <div class="col-sm-12">
         <form action="" method="post" class="create">{% csrf_token %}
             <div class="input-group">
@@ -21,8 +24,8 @@
               <button class="btn btn-cancel">Cancel</button>
             </div>
         </form>
-    
     </div>
+  </div>
 </section>
 
 {% endblock %}
