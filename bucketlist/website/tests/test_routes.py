@@ -71,7 +71,7 @@ class UserAuthTestCase(SetUpMixin, TestCase):
             follow=True
         )
         self.assertContains(response, 'already taken', status_code=200)
-        
+
 
 class BucketlistTestCase(SetUpMixin, TestCase):
     """Test that the user can carry out actions on bucketlist
@@ -80,7 +80,7 @@ class BucketlistTestCase(SetUpMixin, TestCase):
         """Ensures that user can make new bucketlist
         """
         response = self.client.login(**self.login_data)
-        
+
         self.assertEqual(response, True)
 
         bucketlist_data = {'name': 'Before I get married'}
@@ -105,7 +105,7 @@ class BucketlistTestCase(SetUpMixin, TestCase):
                 follow=True
             )
         self.assertEqual(response.status_code, 200)
-        
+
         bucketlist_data = {'name': 'Before I get married'}
         response = self.client.post(
                 reverse('app.bucketlist.create'),
@@ -113,7 +113,7 @@ class BucketlistTestCase(SetUpMixin, TestCase):
                 follow=True
             )
         self.assertEqual(response.status_code, 200)
-        
+
         response = self.client.post(
                     reverse('app.bucketlist.delete', kwargs={'pk': 1}),
                     bucketlist_data, follow=True
@@ -121,7 +121,7 @@ class BucketlistTestCase(SetUpMixin, TestCase):
         self.assertNotContains(response,
                                bucketlist_data['name'],
                                status_code=200)
-        
+
     def test_that_user_can_update_bucketlist(self):
         """Ensures that user can update bucketlist
         """
@@ -130,19 +130,19 @@ class BucketlistTestCase(SetUpMixin, TestCase):
                 self.login_data
             )
         self.assertEqual(response.status_code, 302)
-        
+
         bucketlist_data = {'name': 'Before I get married'}
         response = self.client.post(
                 reverse('app.bucketlist.create'),
                 bucketlist_data
             )
         self.assertEqual(response.status_code, 302)
-        
+
         bucketlist_data['name'] = 'Before I kick the bucket'
         response = self.client.post(
                 reverse('app.bucketlist.update',
-                kwargs={'pk':1}
-            ),
+                        kwargs={'pk': 1}
+                        ),
                 bucketlist_data,
                 follow=True
             )
@@ -161,7 +161,7 @@ class BucketlistTestCase(SetUpMixin, TestCase):
                  follow=True
             )
         self.assertEqual(response.status_code, 200)
-        
+
         bucketlist_data = {'name': 'Before I get married'}
         response = self.client.post(
                 reverse('app.bucketlist.create'),
@@ -169,14 +169,14 @@ class BucketlistTestCase(SetUpMixin, TestCase):
                 follow=True
             )
         self.assertEqual(response.status_code, 200)
-        
+
         response = self.client.get(reverse('app.bucketlists'))
-        
+
         self.assertContains(response,
                             bucketlist_data['name'],
                             status_code=200)
 
-        
+
 class BucketlistItemTestCase(SetUpMixin, TestCase):
     """Test that user can carry out actions on bucketlist items.
     """
@@ -184,7 +184,7 @@ class BucketlistItemTestCase(SetUpMixin, TestCase):
         """Ensures that user can make new bucketlist item
         """
         response = self.client.login(**self.login_data)
-        
+
         self.assertEqual(response, True)
 
         bucketlist_data = {'name': 'Before I get married'}
@@ -197,14 +197,14 @@ class BucketlistItemTestCase(SetUpMixin, TestCase):
         self.assertContains(
             response, bucketlist_data['name'], status_code=200
         )
-        
+
         bucketlistitem_data = {'name': 'Get a dog', 'done': True}
         response = self.client.post(
                 reverse('app.bucketlist.item.create', kwargs={'pk': 1}),
                 bucketlistitem_data,
                 follow=True
             )
-        
+
         self.assertContains(
                 response, bucketlistitem_data['name'], status_code=200
             )
@@ -219,7 +219,7 @@ class BucketlistItemTestCase(SetUpMixin, TestCase):
                 follow=True
             )
         self.assertEqual(response.status_code, 200)
-        
+
         bucketlist_data = {'name': 'Before I get married'}
         response = self.client.post(
                 reverse('app.bucketlist.create'),
@@ -229,18 +229,18 @@ class BucketlistItemTestCase(SetUpMixin, TestCase):
         self.assertContains(
             response, bucketlist_data['name'], status_code=200
         )
-        
+
         bucketlistitem_data = {'name': 'Get a dog', 'done': True}
         response = self.client.post(
                 reverse('app.bucketlist.item.create', kwargs={'pk': 1}),
                 bucketlistitem_data,
                 follow=True
             )
-        
+
         self.assertContains(
                 response, bucketlistitem_data['name'], status_code=200
             )
-        
+
         response = self.client.post(
                     reverse('app.bucketlist.item.delete',
                             kwargs={'pk': 1, 'pk_item': 1}),
@@ -249,7 +249,7 @@ class BucketlistItemTestCase(SetUpMixin, TestCase):
         self.assertNotContains(response,
                                bucketlistitem_data['name'],
                                status_code=200)
-        
+
     def test_that_user_can_update_bucketlistitem(self):
         """Ensures that user can update bucketlist item
         """
@@ -259,7 +259,7 @@ class BucketlistItemTestCase(SetUpMixin, TestCase):
                 follow=True
             )
         self.assertEqual(response.status_code, 200)
-        
+
         bucketlist_data = {'name': 'Before I get married'}
         response = self.client.post(
                 reverse('app.bucketlist.create'),
@@ -269,23 +269,23 @@ class BucketlistItemTestCase(SetUpMixin, TestCase):
         self.assertContains(
             response, bucketlist_data['name'], status_code=200
         )
-        
+
         bucketlistitem_data = {'name': 'Get a dog', 'done': True}
         response = self.client.post(
                 reverse('app.bucketlist.item.create', kwargs={'pk': 1}),
                 bucketlistitem_data,
                 follow=True
             )
-        
+
         self.assertContains(
                 response, bucketlistitem_data['name'], status_code=200
             )
-        
+
         bucketlistitem_data['name'] = 'Get a cat'
         response = self.client.post(
                 reverse('app.bucketlist.item.update',
-                kwargs={'pk':1, 'pk_item': 1}
-            ),
+                        kwargs={'pk': 1, 'pk_item': 1}
+                        ),
                 bucketlistitem_data,
                 follow=True
             )
@@ -295,13 +295,57 @@ class BucketlistItemTestCase(SetUpMixin, TestCase):
             status_code=200
         )
 
+    def test_that_user_can_mark_task_as_done(self):
+        """Ensures that user can mark bucketlist item as done
+        """
+        response = self.client.post(
+                reverse('app.login'),
+                self.login_data,
+                follow=True
+            )
+        self.assertEqual(response.status_code, 200)
+
+        bucketlist_data = {'name': 'Before I get married'}
+        response = self.client.post(
+                reverse('app.bucketlist.create'),
+                bucketlist_data,
+                follow=True
+            )
+        self.assertContains(
+            response, bucketlist_data['name'], status_code=200
+        )
+
+        bucketlistitem_data = {'name': 'Get a dog', 'done': True}
+        response = self.client.post(
+                reverse('app.bucketlist.item.create', kwargs={'pk': 1}),
+                bucketlistitem_data,
+                follow=True
+            )
+
+        self.assertContains(
+                response, bucketlistitem_data['name'], status_code=200
+            )
+
+        response = self.client.get(
+                reverse('app.bucketlist.item.finish',
+                        kwargs={'pk': 1, 'pk_item': 1}
+                        ),
+                follow=True
+            )
+
+        self.assertContains(
+            response,
+            'marked as done',
+            status_code=200
+        )
+
 
 class UserProfileTestCase(SetUpMixin, TestCase):
     """Test that user can edit his profile.
     """
     def test_that_user_can_edit_profile(self):
         response = self.client.login(**self.login_data)
-        
+
         self.assertEqual(response, True)
 
         profile_data = {
