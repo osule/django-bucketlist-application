@@ -4,21 +4,26 @@
 {% include 'website/snippets/search.html' %}
 
 <header>
-  <div class="col-sm-12 margin-sm-bottom">
-    <h2>Dashboard</h2>
+  <div class="row">
+    <div class="col-sm-12 margin-sm-bottom">
+      <h2>Dashboard</h2>
+    </div>
   </div>
 </header>
 {% include 'website/snippets/messages.html' %}
 <section>
- 
- <ul class="menu">
-    <li>
-        <i class="fa fa-list"></i><a href="{% url 'app.bucketlists'%}">Bucketlists</a>
-    </li> 
-    <li>
-        <i class="fa fa-users"></i><a href="{% url 'app.user_profile'%}">Your Profile</a>
-    </li>
- </ul>
+ <div class="row">
+   <div class="col-sm-12">
+     <ul class="menu">
+        <li>
+            <i class="fa fa-list"></i><a href="{% url 'app.bucketlists'%}">Bucketlists</a>
+        </li> 
+        <li>
+            <i class="fa fa-users"></i><a href="{% url 'app.user_profile'%}">Your Profile</a>
+        </li>
+     </ul>
+    </div>
+  </div>
 </section>
 
 
