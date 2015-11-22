@@ -1,5 +1,5 @@
 <div class="row">
     <div class="col-sm-12 back">
-        <a href="{{up_a_level or request.META.HTTP_REFERER}}" title="Go to the previous page">Back</a>
+        <a href="{{up_a_level|default:request.META.HTTP_REFERER}}" title="Go to the previous page">Back</a>
     </div>
 </div>
