@@ -10,6 +10,7 @@ omit =
     */migrations/*
     */urls.py
 exclude_lines =
-    def *:
-    import *
-    from * import *
+    pragma: no cover
+    def
+    import
+    from
