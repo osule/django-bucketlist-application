@@ -6,7 +6,8 @@ env:
   - DJANGO_SETTINGS_MODULE='settings.testing'
 install:
 - pip install -r requirements/testing.txt
-- pip install coveralls
+- pip install python-coveralls
+- pip install coverage
 - npm install bower
 script:
 - python bucketlist/manage.py bower install
