@@ -11,6 +11,7 @@ from django.template.loader import TemplateDoesNotExist
 from django.http import Http404
 from django.contrib import messages
 from django.db import IntegrityError
+from django.db.models import Count, F, Aggregate
 from website.models import Bucketlist, BucketlistItem, UserProfile
 
 
@@ -147,12 +148,10 @@ class DashboardView(LoginRequiredMixin, View):
     """Renders dashboard for logged in user"""
 
     def get(self, request, *args, **kwargs):
-        bucketlists = Bucketlist.objects.order_by('date_created')
         return render(
             request,
             'website/dashboard.html',
             {
-                'bucketlists': bucketlists,
                 'page_title': 'Bucketlists'
             }
         )
@@ -169,13 +168,18 @@ class BucketlistListView(LoginRequiredMixin, ListView):
         query_string = self.request.GET.get('q', None)
         if query_string:
             return self.model.search(query_string)
-        return self.model.objects.filter(user=self.request.user)
+        return self.model.objects.filter(
+            user=self.request.user
+        ).annotate(
+            num_items=Count('bucketlistitem', distinct=True),
+        )
 
     def get_context_data(self, **kwargs):
         context = super(BucketlistListView, self).get_context_data(**kwargs)
         context['q'] = self.request.GET.get('q', None)
         context['object'] = 'bucketlists'
         context['page_title'] = 'View Bucketlists'
+        context['up_a_level'] = reverse('app.dashboard')
         return context
 
 
@@ -192,6 +196,7 @@ class BucketlistDetailView(LoginRequiredMixin, DetailView):
             BucketlistItem.objects.filter(bucketlist=context['object'].id)
         )
         context['page_title'] = "View Bucketlist"
+        context['up_a_level'] = reverse('app.bucketlists')
         return context
 
 
