@@ -9,11 +9,11 @@ install:
 - pip install coveralls
 - npm install bower
 script:
-- python bucketlist/manage.py bower install --settings=settings.testing
-- python bucketlist/manage.py collectstatic --noinput --settings=settings.testing
-- python bucketlist/manage.py makemigrations --settings=settings.testing
-- python bucketlist/manage.py migrate --settings=settings.testing
-- coverage run bucketlist/manage.py test
+- python bucketlist/manage.py bower install
+- python bucketlist/manage.py collectstatic --noinput
+- python bucketlist/manage.py makemigrations
+- python bucketlist/manage.py migrate
+- coverage run --source bucketlist/website,bucketlist/api bucketlist/manage.py test
 after_success:
 - coveralls
 deploy:
