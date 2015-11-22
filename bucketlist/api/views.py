@@ -22,17 +22,17 @@ class BucketlistList(generics.ListCreateAPIView):
     serializer_class = BucketlistSerializer
     permission_classes = (IsAuthenticated,)
     paginate_by = 100
-    
+
     def get_queryset(self):
         q = self.request.GET.get('q', None)
         if q:
             return Bucketlist.search(q)
         return Bucketlist.objects.filter(user=self.request.user)
-    
+
     def perform_create(self, serializer):
         serializer.save(user_id=self.request.user.id)
 
-        
+
 class BucketlistDetail(generics.RetrieveUpdateDestroyAPIView):
     """defines the bucketlist detail view behaviour.
     Comes with Read, Update and Delete.
@@ -40,7 +40,7 @@ class BucketlistDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Bucketlist
     serializer_class = BucketlistWithItemsSerializer
     permission_classes = (IsAuthenticated,)
-    
+
     def get_query(self):
         return get_object_or_404(Bucketlist, pk=self.kwargs.get('pk'))
 
@@ -50,12 +50,12 @@ class BucketlistItemCreate(generics.ListCreateAPIView):
     """
     model = BucketlistItem
     serializer_class = BucketlistItemSerializer
-    
+
     def get_queryset(self):
         pk = self.kwargs.get('pk')
         bucketlist = get_object_or_404(Bucketlist, pk=pk)
         return BucketlistItem.objects.filter(
-            user=self.request.user,bucketlist=bucketlist)
+            user=self.request.user, bucketlist=bucketlist)
 
     def perform_create(self, serializer):
         pk = self.kwargs.get('pk')
