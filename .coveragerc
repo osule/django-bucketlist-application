@@ -9,3 +9,7 @@ omit =
     */bucketlist/settings/*.py
     */migrations/*
     */urls.py
+exclude_lines =
+    def *:
+    import *
+    from * import *
