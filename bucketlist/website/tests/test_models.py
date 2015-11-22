@@ -61,7 +61,25 @@ class BucketListTestCase(TestCase):
             bucketlist=bucketlist,
             user_id=self.user.id)
         bucketlist_item.save()
-        
-        query_results = BucketlistItem.search('Visit')
-        
+
+        query_results = BucketlistItem.search('Visit India')
+
         self.assertIn(bucketlist_item, query_results)
+
+    def test_that_items_done_can_be_retrieved(self):
+        """Ensure that items done can be retrieved
+        """
+        bucketlist = Bucketlist.objects.get(
+            name=self.title)
+        bucketlist_item = BucketlistItem(
+            name="Visit India",
+            done=False,
+            bucketlist=bucketlist,
+            user_id=self.user.id)
+        bucketlist_item.save()
+
+        self.assertEqual(bucketlist.num_items_done(), 0)
+
+        bucketlist_item.done = True
+        bucketlist_item.save()
+        self.assertEqual(bucketlist.num_items_done(), 1)
