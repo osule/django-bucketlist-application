@@ -176,6 +176,30 @@ class BucketlistTestCase(SetUpMixin, TestCase):
                             bucketlist_data['name'],
                             status_code=200)
 
+    def test_that_the_user_can_retrieve_paginated_bucketlist(self):
+        """Ensures that user can retrieve paginated bucketlist
+        """
+        response = self.client.post(
+                 reverse('app.login'),
+                 self.login_data,
+                 follow=True
+            )
+        self.assertEqual(response.status_code, 200)
+
+        for i in xrange(50):
+            response = self.client.post(
+                reverse('app.bucketlist.create'),
+                {'name': fakerInst.name()},
+                follow=True
+            )
+            self.assertEqual(response.status_code, 200)
+
+        response = self.client.get(reverse('app.bucketlists'))
+
+        self.assertContains(response,
+                            'Next',
+                            status_code=200)
+
 
 class BucketlistItemTestCase(SetUpMixin, TestCase):
     """Test that user can carry out actions on bucketlist items.
