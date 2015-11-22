@@ -28,8 +28,8 @@
   	        {% for bucketlist in object_list %}
               <tr>
                   <td><a href="{% url 'app.bucketlist' bucketlist.id %}">{{ bucketlist.name }}</a></td>
-                  <td>{{bucketlist.bucketlistitem_count_done}} /
-                    {{bucketlist.bucketlistitem_count}}</td>
+                  <td>{{bucketlist.num_items_done}} /
+                    {{bucketlist.num_items}}</td>
                   <td>
                   <a class="action-link" href="{% url 'app.bucketlist.update' bucketlist.id %}" title="Update"><i class="fa fa-edit"></i></a>
                   <a class="action-link" href="{% url 'app.bucketlist.delete' bucketlist.id %}" title="Delete"><i class="fa fa-trash"></i></a></td>
