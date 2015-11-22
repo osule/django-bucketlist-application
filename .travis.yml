@@ -13,7 +13,7 @@ script:
 - python bucketlist/manage.py collectstatic --noinput --settings=settings.testing
 - python bucketlist/manage.py makemigrations --settings=settings.testing
 - python bucketlist/manage.py migrate --settings=settings.testing
-- python bucketlist/manage.py test --noinput --settings=settings.testing
+- coverage run bucketlist/manage.py test
 after_success:
 - coveralls
 deploy:
