@@ -11,7 +11,7 @@ from django.template.loader import TemplateDoesNotExist
 from django.http import Http404
 from django.contrib import messages
 from django.db import IntegrityError
-from django.db.models import Count, F, Aggregate
+from django.db.models import Count
 from website.models import Bucketlist, BucketlistItem, UserProfile
 
 
