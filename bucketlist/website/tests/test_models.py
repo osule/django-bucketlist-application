@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from django.test import TestCase
-from website.models import Bucketlist, BucketlistItem
+from website.models import Bucketlist, BucketlistItem, UserProfile
 from django.contrib.auth.models import User
 
 
@@ -50,7 +50,7 @@ class BucketListTestCase(TestCase):
             bucketlist_item.bucketlist_id,
             bucketlist.id)
 
-    def test_that_models_can_be_query(self):
+    def test_that_models_can_be_queried(self):
         """Ensures that models can be queried.
         """
         bucketlist = Bucketlist.objects.get(
@@ -83,3 +83,13 @@ class BucketListTestCase(TestCase):
         bucketlist_item.done = True
         bucketlist_item.save()
         self.assertEqual(bucketlist.num_items_done(), 1)
+
+    def test_that_user_profile_can_be_created(self):
+        """Ensure that user profile can be created
+        """
+        user_profile = UserProfile(bio="Some bio info", age=24, user=self.user)
+        user_profile.save()
+
+        test_user_profile = UserProfile.objects.get(user=self.user)
+
+        self.assertEqual(test_user_profile.id, user_profile.id)
