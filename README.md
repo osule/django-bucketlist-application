@@ -27,7 +27,7 @@ Bucketlist Tracker uses a number of open source projects to work properly:
 * [Swagger] - The World's Most Popular Framework for APIs
 * [Twitter Bootstrap] - great UI boilerplate for modern web apps
 * [Bower] - A package manager for the web
-* [Django Rest Framework ] - Django REST framework is a powerful and flexible toolkit for building Web APIs
+* [Django Rest Framework] - Django REST framework is a powerful and flexible toolkit for building Web APIs
 * [HTML5 Boilerplate] - HTML5 Boilerplate helps you build fast, robust, and adaptable web apps or sites
 * [Font Awesome] - Font Awesome gives you scalable vsector icons that can instantly be customized
 * [jQuery] - jQuery is a fast, small, and feature-rich JavaScript library
@@ -59,9 +59,12 @@ $ python bucketlist/manage.py runserver --settings=settings.development
 ```
 
 ### Development
+####API integration
+Bucketlist Tracker has exposed API endpoints with browsable documentation [here](https://bucketlist-staging.herokuapp.com/docs)
+More details about API specific use cases can be found [here](https://https://github.com/andela-osule/django-bucketlist-application/blob/master/api.md)
 
+####Contribution
 Want to contribute? Great!
-
 Fork this repository, do the awesome and then make a pull request.
 
 ### Todos
