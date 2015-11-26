@@ -1,5 +1,5 @@
-[![Build Status](https://travis-ci.org/andela-osule/django-powered-bucketlist-application.svg?branch=master)](https://travis-ci.org/andela-osule/django-powered-bucketlist-application) 
-[![Coverage Status](https://coveralls.io/repos/andela-osule/django-powered-bucketlist-application/badge.svg?branch=master&service=github)](https://coveralls.io/github/andela-osule/django-powered-bucketlist-application?branch=master)
+[![Build Status](https://travis-ci.org/andela-osule/django-bucketlist-application.svg?branch=master)](https://travis-ci.org/andela-osule/django-powered-bucketlist-application) 
+[![Coverage Status](https://coveralls.io/repos/andela-osule/django-bucketlist-application/badge.svg?branch=master&service=github)](https://coveralls.io/github/andela-osule/django-powered-bucketlist-application?branch=master)
 
 # Bucketlist Tracker
 
