@@ -18,6 +18,8 @@ class BaseModel(models.Model):
 
     @classmethod
     def search(cls, query_string):
+        """Searches the model table for occurences of words
+        in the query string"""
         query = None
         query_terms = normalize(query_string)
         for term in query_terms:
@@ -38,27 +40,23 @@ class BaseModel(models.Model):
 
 
 class Bucketlist(BaseModel):
-    """A model representation of the Bucketlist table
-    """
+    """A model representation of the Bucketlist table"""
     user = models.ForeignKey(User)
 
     def num_items_done(self):
-        """Returns number of bucketlist items completed
-        """
+        """Returns number of bucketlist items completed"""
         return self.bucketlistitem_set.filter(done=True).count()
 
 
 class BucketlistItem(BaseModel):
-    """A model representation of the Bucketlist item table
-    """
+    """A model representation of the Bucketlist item table"""
     done = models.BooleanField(default=False)
     user = models.ForeignKey(User)
     bucketlist = models.ForeignKey(Bucketlist)
 
 
 class UserProfile(BaseModel):
-    """A model representation of the user's profile
-    """
+    """A model representation of the user's profile"""
     bio = models.TextField(blank=True, null=True)
     age = models.IntegerField(blank=True, null=True)
     user = models.ForeignKey(User)
