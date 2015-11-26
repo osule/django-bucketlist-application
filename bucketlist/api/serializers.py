@@ -5,8 +5,8 @@ from website.models import Bucketlist, BucketlistItem
 
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
-    """Defines the user API representation.
-    """
+    """Defines the user API representation."""
+    
     class Meta:
         model = User
         fields = ('username', 'email')
@@ -22,21 +22,21 @@ class BucketlistSerializer(serializers.ModelSerializer):
         fields = ('id', 'name', 'date_created', 'date_modified', 'created_by')
     
     def get_creator(self, obj):
+        """Returns the creator of a bucketlistitem"""
         return obj.user.id
  
 
 class BucketlistWithItemsSerializer(BucketlistSerializer):
-    """Defines the bucketlist API representation with children items.
-    """
+    """Defines the bucketlist API representation with children items."""
     items = serializers.SerializerMethodField('get_bucketlistitems')
     
- 
     class Meta:
         model = Bucketlist
         fields = ('id', 'name', 'items', 
                   'date_created', 'date_modified', 'created_by')
     
     def get_bucketlistitems(self, obj):
+        """Returns a serializable list of bucketlistitems"""
         queryset = list(BucketlistItem.objects.filter(bucketlist=obj))
         return [
             BucketlistItemSerializer(bucketlistitem).data \
@@ -44,8 +44,7 @@ class BucketlistWithItemsSerializer(BucketlistSerializer):
 
 
 class BucketlistItemSerializer(serializers.ModelSerializer):
-    """Defines the bucketlistitem API representation.
-    """
+    """Defines the bucketlistitem API representation."""
     
     class Meta:
         model = BucketlistItem
