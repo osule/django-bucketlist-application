@@ -16,6 +16,7 @@ from website.models import Bucketlist, BucketlistItem, UserProfile
 
 
 class LoginRequiredMixin(object):
+    """Enforces authentication before handling request"""
 
     @classmethod
     def as_view(cls, **initkwargs):
@@ -24,9 +25,11 @@ class LoginRequiredMixin(object):
 
 
 class RootView(View):
+    """Handles request to the website root"""
     template_name = "website/index.html"
 
     def get(self, request, *args, **kwargs):
+        """Returns response for `GET` request to the website root"""
         if request.user.is_authenticated():
             return redirect(reverse('app.dashboard'))
         return render(request,
@@ -38,10 +41,10 @@ class RootView(View):
 
 
 class RootFilesView(View):
-
     """Renders requests for `robots.txt` and `humans.txt`"""
 
     def get(self, request, *args, **kwargs):
+        """Returns response for `GET` request to the website root"""
         filename = self.kwargs.get('filename')
         return render(
             request, filename,
@@ -50,10 +53,10 @@ class RootFilesView(View):
 
 
 class StaticView(View):
-
     """Renders request for static pages"""
 
     def get(self, request, *args, **kwargs):
+        """Returns response for `GET` requests for static files"""
         page = self.kwargs.get('page')
         try:
             return render(request,
@@ -64,11 +67,11 @@ class StaticView(View):
 
 
 class LoginView(View):
-
-    """Renders requests for authorization.
-    """
+    """Renders requests for authorization."""
 
     def post(self, request, *args, **kwargs):
+        """Handles logic and Returns response for `POST`
+        requests to `/login`"""
         username = request.POST.get('username')
         password = request.POST.get('password')
         if not request.POST.get('remember_me', None):
@@ -96,21 +99,20 @@ class LoginView(View):
 
 
 class LogoutView(View):
-
-    """Renders request to logout authenticated session.
-    """
+    """Renders request to logout authenticated session"""
 
     def get(self, request, *args, **kwargs):
+        """Returns response for `GET` request to `/logout`"""
         logout(request)
         return redirect(reverse('app.index'))
 
 
 class SignUpView(View):
-
-    """Processes request to sign up a user
-    """
+    """Processes request to sign up a user"""
 
     def post(self, request, *args, **kwargs):
+        """Handles logic and returns response for `POST`
+        request to `/signup`"""
         if request.user.is_authenticated():
             return redirect(reverse('app.dashboard'))
         email = request.POST.get('email')
@@ -144,10 +146,10 @@ class SignUpView(View):
 
 
 class DashboardView(LoginRequiredMixin, View):
-
     """Renders dashboard for logged in user"""
 
     def get(self, request, *args, **kwargs):
+        """Return response for `GET` requests to `/dashboard`"""
         return render(
             request,
             'website/dashboard.html',
@@ -158,13 +160,13 @@ class DashboardView(LoginRequiredMixin, View):
 
 
 class BucketlistListView(LoginRequiredMixin, ListView):
-
-    """Renders bucketlist for logged in user"""
+    """Renders bucketlist for authenticated user"""
     model = Bucketlist
     template_name = 'website/bucketlist_list.html'
     paginate_by = 5
 
     def get_queryset(self, **kwargs):
+        """Specifies a queryset to be rendered in the ListView"""
         query_string = self.request.GET.get('q', None)
         if query_string:
             return self.model.search(query_string)
@@ -175,6 +177,7 @@ class BucketlistListView(LoginRequiredMixin, ListView):
         )
 
     def get_context_data(self, **kwargs):
+        """Specifies the context data to be returned in the response"""
         context = super(BucketlistListView, self).get_context_data(**kwargs)
         context['q'] = self.request.GET.get('q', None)
         context['object'] = 'bucketlists'
@@ -185,10 +188,11 @@ class BucketlistListView(LoginRequiredMixin, ListView):
 
 class BucketlistDetailView(LoginRequiredMixin, DetailView):
 
-    """Renders bucketlist detail and handle POST"""
+    """Renders bucketlist detail"""
     model = Bucketlist
 
     def get_context_data(self, **kwargs):
+        """Specifies the context data to be returned in the response"""
         context = super(BucketlistDetailView, self).get_context_data(**kwargs)
         setattr(
             context['object'],
@@ -201,15 +205,16 @@ class BucketlistDetailView(LoginRequiredMixin, DetailView):
 
 
 class BucketlistCreateView(LoginRequiredMixin, CreateView):
+    """Handles creation of a bucketlist"""
     model = Bucketlist
     fields = ['name']
 
     def get_success_url(self, pk):
+        """Specifies redirect URL if handling is processed successfully"""
         return reverse_lazy('app.bucketlist', kwargs={'pk': pk})
 
     def post(self, request):
-        """ Overwrite post method to save bucketlist with user_id
-        """
+        """ Overrides `POST` method to save bucketlist with user_id"""
         form_cls = self.get_form_class()
         form = form_cls(request.POST)
         form_model = form.save(commit=False)
@@ -219,22 +224,26 @@ class BucketlistCreateView(LoginRequiredMixin, CreateView):
 
 
 class BucketlistUpdateView(LoginRequiredMixin, UpdateView):
+    """Handles update of a bucketlist"""
     model = Bucketlist
     fields = ['name']
     template_name_suffix = '_update_form'
     success_url = reverse_lazy('app.bucketlists')
 
     def get_context_data(self, **kwargs):
+        """Specifies the context data returned in the response"""
         context = super(BucketlistUpdateView, self).get_context_data(**kwargs)
         context['page_title'] = 'Update Bucketlist'
         return context
 
 
 class BucketlistDeleteView(LoginRequiredMixin, DeleteView):
+    """Handles deletion of a bucketlist"""
     model = Bucketlist
     success_url = reverse_lazy('app.bucketlists')
 
     def get_context_data(self, **kwargs):
+        """Specifies the context data returned in the response"""
         context = super(BucketlistDeleteView, self).get_context_data(**kwargs)
         context['page_title'] = 'Delete Bucketlist'
         return context
@@ -247,13 +256,16 @@ class BucketlistItemListView(LoginRequiredMixin, ListView):
 
 
 class BucketlistItemCreateView(LoginRequiredMixin, CreateView):
+    """Handles the creation of a bucketlist item"""
     model = BucketlistItem
     fields = ['name', 'done']
 
     def get_success_url(self, pk):
+        """Specifies the redirect URL is processed handled successfully"""
         return reverse_lazy('app.bucketlist', kwargs={'pk': pk})
 
     def get_context_data(self, **kwargs):
+        """Specifies the context data returned in the response"""
         context = super(
             BucketlistItemCreateView, self).get_context_data(**kwargs)
         bucketlist = get_object_or_404(Bucketlist, pk=self.kwargs.get('pk'))
@@ -262,8 +274,7 @@ class BucketlistItemCreateView(LoginRequiredMixin, CreateView):
         return context
 
     def post(self, request, pk):
-        """ Overwrite post method to save bucketlist with user_id
-        """
+        """Overwrite post method to save bucketlist with user_id"""
         form_cls = self.get_form_class()
         form = form_cls(request.POST)
         form_model = form.save(commit=False)
@@ -275,26 +286,30 @@ class BucketlistItemCreateView(LoginRequiredMixin, CreateView):
 
 
 class BucketlistItemUpdateView(LoginRequiredMixin, UpdateView):
+    """Handles the update of a bucketlist item"""
     model = BucketlistItem
     template_name_suffix = '_update_form'
     fields = ['name', 'done']
 
     def get_success_url(self, **kwargs):
+        """Specifies the redirect URL is handling is successful"""
         id, item_id = self.kwargs.values()
         return reverse_lazy('app.bucketlist',
                             kwargs={'pk': id})
 
     def get_queryset(self, **kwargs):
+        """Specifies the queryset used for the logic"""
         pk = self.kwargs.get('pk_item', None)
         return self.model.objects.get(pk=pk)
 
     def get_object(self, queryset=None, **kwargs):
+        """Specifies the object that is updated"""
         if queryset is None:
             queryset = self.get_queryset(**kwargs)
         return queryset
 
     def get_context_data(self, **kwargs):
-        pk = self.kwargs.get('pk_item')
+        """Specifies the context data returned in the response"""
         context = super(
             BucketlistItemUpdateView, self).get_context_data(**kwargs)
         context['page_title'] = 'Update Bucketlist Item'
@@ -302,27 +317,29 @@ class BucketlistItemUpdateView(LoginRequiredMixin, UpdateView):
 
 
 class BucketlistItemDeleteView(LoginRequiredMixin, DeleteView):
-
     """Renders bucketlist item delete confirmation"""
     model = BucketlistItem
     template_name_suffix = '_confirm_delete'
 
     def get_success_url(self, **kwargs):
+        """Specifies the redirect URL if handling is successful"""
         id, item_id = self.kwargs.values()
         return reverse_lazy('app.bucketlist',
                             kwargs={'pk': id})
 
     def get_queryset(self, **kwargs):
+        """Specifies the queryset used for the logic"""
         pk = self.kwargs.get('pk_item', None)
         return self.model.objects.get(pk=pk)
 
     def get_object(self, queryset=None, **kwargs):
+        """Specifies the object that is deleted"""
         if queryset is None:
             queryset = self.get_queryset(**kwargs)
         return queryset
 
     def get_context_data(self, **kwargs):
-        pk = self.kwargs.get('pk_item')
+        """Specifies the context data returned in the response"""
         context = super(
             BucketlistItemDeleteView, self).get_context_data(**kwargs)
         context['page_title'] = 'Delete Bucketlist Item'
@@ -330,20 +347,22 @@ class BucketlistItemDeleteView(LoginRequiredMixin, DeleteView):
 
 
 class BucketlistItemDetailView(LoginRequiredMixin, DetailView):
-
     """Renders bucketlist item detail view"""
     model = BucketlistItem
 
     def get_queryset(self, **kwargs):
+        """Specifies the queryset used for the logic"""
         pk = self.kwargs.get('pk_item', None)
         return self.model.objects.get(pk=pk)
 
     def get_object(self, queryset=None, **kwargs):
+        """Specifies the object that is viewed"""
         if queryset is None:
             queryset = self.get_queryset(**kwargs)
         return queryset
 
     def get_context_data(self, **kwargs):
+        """Specifies the context data returned in the response"""
         item_id = self.kwargs.get('pk_item')
         context = {}
         context['object'] = get_object_or_404(BucketlistItem, pk=item_id)
@@ -352,10 +371,10 @@ class BucketlistItemDetailView(LoginRequiredMixin, DetailView):
 
 
 class BucketlistItemDoneView(View):
-
-    """Toggles bucketlist item done field"""
+    """Sets a bucketlist item done field to True"""
 
     def get(self, request, **kwargs):
+        """Handles logic for setting a bucketlist item as done"""
         item_id = self.kwargs.get('pk_item')
         id = self.kwargs.get('pk')
         bucketlistitem = get_object_or_404(BucketlistItem, pk=item_id)
@@ -366,10 +385,10 @@ class BucketlistItemDoneView(View):
 
 
 class UserProfileView(LoginRequiredMixin, View):
-
     """Renders user profile page"""
 
     def get(self, request, *args, **kwargs):
+        """Handles logic to retrieve user profile information"""
         profile, created = UserProfile.objects.get_or_create(
             user=self.request.user)
 
@@ -382,19 +401,21 @@ class UserProfileView(LoginRequiredMixin, View):
 
 
 class UserProfileUpdateView(LoginRequiredMixin, UpdateView):
-
     """Renders user profile form and updates profile data on form submission"""
     model = UserProfile
     template_name_suffix = '_update_form'
     fields = ['age', 'bio']
 
     def get_success_url(self, **kwargs):
+        """Specifies redirect URL if handling is successful"""
         return reverse_lazy('app.user_profile',)
 
     def get_object(self, queryset=None, **kwargs):
+        """Specifies the object that is updated"""
         return self.model.objects.get_or_create(user=self.request.user)[0]
 
     def get_context_data(self, **kwargs):
+        """Specifies the context_data returned in the response"""
         context = super(UserProfileUpdateView, self).get_context_data(**kwargs)
         context['page_title'] = 'Update Profile'
         return context
